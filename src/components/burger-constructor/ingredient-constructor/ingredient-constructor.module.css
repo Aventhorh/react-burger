@@ -1,0 +1,30 @@
+  .ingredientItem {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .ingredientListItem:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
+  .ingredientListItemLocked {
+    margin-bottom: 16px;
+    margin-right: 16px;
+    list-style-type: none;
+  }
+
+  .ingredientButton {
+    margin: 0 8px 0 0;
+    padding: 0;
+    border: none;
+    background: none;
+  }
+
+  .ingredientContainer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+    box-sizing: border-box;
+  }
