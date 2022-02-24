@@ -1,28 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Button,
     CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import cl from "./burger-constructor.module.css";
-import { ingredients } from "../../utils/data";
 import IngredientConstructor from "./ingredient-constructor/ingredient-constructor";
-import { useState } from "react";
-const BurgerConstructor = () => {
+const BurgerConstructor = (...props) => {
 
-    const [bun,] = useState("bun")
+    const [ingredient,] = useState(props[0].ingredientsData)
 
-    const ingre = ingredients.find(item => item.type === bun)
+    const BUN = "bun"
+
+    const bunIngredient = ingredient.find(item => item.type === BUN)
+
+    const ingredientsWithoutBuns = ingredient.filter((ingredient) => {
+        return ingredient.type != "bun";
+    });
 
     return (
         <section className={(cl.ingredientConstWrapper, "ml-10 mt-20")}>
 
-            {ingre ? <IngredientConstructor bool={true} types="top" {...ingre} key={ingre._id} /> : ''}
+            {bunIngredient ? <IngredientConstructor positionText="(верх)" bun={true} types="top" {...bunIngredient} key={bunIngredient._id} /> : ''}
 
             <ul className={(cl.ingredientConstList)}>
-                {ingredients.map((item) => (<IngredientConstructor {...item} key={item._id} />))}
+                {ingredientsWithoutBuns.map((item) => (<IngredientConstructor {...item} key={item._id} />))}
             </ul>
 
-            {ingre ? <IngredientConstructor bool={true} types="bottom" {...ingre} key={ingre._id} /> : ''}
+            {bunIngredient ? <IngredientConstructor positionText="(низ)" bun={true} types="bottom" {...bunIngredient}/> : ''}
 
             <div className={cl.ingredientConstResultsPrice}>
                 <p className={(cl.ingredientConstRegistration, "mr-10")}>

@@ -1,7 +1,8 @@
 import React from 'react';
+import { ingredients } from '../../utils/data';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import BurgerIngredients from '../burger-ingredients/burger-ingridients';
+import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import cl from './app.module.css'
 
 function App() {
@@ -9,8 +10,8 @@ function App() {
     <div className={cl.app}>
       <AppHeader />
       <div className={cl.app__burgerMakingSection} >
-        <BurgerIngredients />
-        <BurgerConstructor />
+        <BurgerIngredients ingredientsData={ingredients}/>
+        <BurgerConstructor ingredientsData={ingredients}/>
       </div>
     </div>
   );

@@ -4,23 +4,40 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import cl from "./ingredient-constructor.module.css";
+import PropTypes from 'prop-types';
 
 
-const IngredientConstructor = ({ bool, types, ...props }) => {
+const IngredientConstructor = ({ bun, types, positionText, ...props }) => {
 
     return (
         
-        <li className={bool === true ? cl.ingredientListItemLocked : cl.ingredientListItem} >
+        <li className={bun === true ? cl.ingredientListItemLocked : cl.ingredientListItem} >
             <div className={cl.ingredientItem}>
                 <button className={cl.ingredientButton}>
-                    {bool === true ? '' : <DragIcon type="primary" />}
+                    {bun === true ? '' : <DragIcon type="primary" />}
                 </button>
                 <div className={cl.ingredientContainer}>
-                    <ConstructorElement isLocked={bool} type={types} text={props.name} price={props.price} thumbnail={props.image} />
+                    <ConstructorElement isLocked={bun} type={types} text={props.name + positionText} price={props.price} thumbnail={props.image} />
                 </div>
+                
             </div>
         </li>
     );
 };
+
+IngredientConstructor.propTypes = {
+    _id: PropTypes.string,
+    name: PropTypes.string,
+    type: PropTypes.string,
+    proteins: PropTypes.number,
+    fat: PropTypes.number,
+    carbohydrates: PropTypes.number,
+    calories: PropTypes.number,
+    price: PropTypes.number,
+    image: PropTypes.string,
+    image_mobile: PropTypes.string,
+    image_large: PropTypes.string,
+    __v: PropTypes.number,
+}; 
 
 export default IngredientConstructor;
