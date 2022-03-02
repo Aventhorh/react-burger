@@ -1,0 +1,9 @@
+.app__burgerMakingSection{
+    display: flex;
+    width: 1280px;
+    margin: auto;
+}
+
+.app{
+    background-color: #131316;
+}
