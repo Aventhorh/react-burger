@@ -1,27 +1,27 @@
-  .ingredientItem {
+  .ingredient__item {
     width: 100%;
     display: flex;
     align-items: center;
   }
   
-  .ingredientListItem:not(:last-child) {
+  .ingredient__listItem:not(:last-child) {
     margin-bottom: 16px;
   }
 
-  .ingredientListItemLocked {
+  .ingredient__listItemLocked {
     margin-bottom: 16px;
     margin-right: 16px;
     list-style-type: none;
   }
 
-  .ingredientButton {
+  .ingredient__button {
     margin: 0 8px 0 0;
     padding: 0;
     border: none;
     background: none;
   }
 
-  .ingredientContainer {
+  .ingredient__container {
     width: 100%;
     display: flex;
     justify-content: flex-end;

@@ -15,23 +15,27 @@
     background-color: #5a5a74;
   }
 
-  .ingredientsSection{
+  .ingredient__links{
+    display: flex;
+  }
+  
+  .ingredients__section{
     margin-top: 40px;
   }
 
-  .ingredientsContainer {
+  .ingredients__item{
+    cursor: pointer;
+  }
+
+  .ingredients__container {
     width: 600px;
     height: 750px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
   }
-
-  .ingredientLinks{
-    display: flex;
-  }
   
-  .ingredientList {
+  .ingredient__list {
     margin-left: 0;
     list-style: none;
     display: grid;
@@ -40,18 +44,6 @@
     padding: 0;
   }
   
-  .ingredientCost {
-    margin: 0 0 4px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .ingredientTitle {
-    margin: 0;
-    min-height: 48px;
-    text-align: center;
-  }
-  
-  .ingredientTab {
+  .ingredient__tab {
     text-decoration: none;
   }

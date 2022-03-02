@@ -1,6 +1,6 @@
-.burger__ingredient {
+.order {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
+    margin: 0 100px 0 100px;
   }
