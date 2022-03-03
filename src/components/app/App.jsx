@@ -1,4 +1,4 @@
-import { useEffect,  useState } from "react";
+import { useEffect, useState } from "react";
 import { apiIngredients } from '../../utils/api';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -13,17 +13,21 @@ function App() {
     fetchIngredients()
   }, [])
 
- async function fetchIngredients(){
-   const ingredient = await apiIngredients
-   setIngredients(ingredient.data.data)
- }
-  
+  async function fetchIngredients() {
+    try {
+      const ingredient = await apiIngredients
+      setIngredients(ingredient.data.data)
+    } catch {
+      console.log("Ошибка взаимодействия с сервером")
+    }
+  }
+
   return (
     <div className={cl.app}>
       <AppHeader />
       <div className={cl.app__burgerMakingSection} >
-        <BurgerIngredients ingredientsData={ingredients}/>
-        <BurgerConstructor ingredientsData={ingredients}/>
+        <BurgerIngredients ingredientsData={ingredients} />
+        <BurgerConstructor ingredientsData={ingredients} />
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import IngredientConstructor from "./ingredient-constructor/ingredient-construct
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
+import { types } from "../../utils/types";
 
 const BurgerConstructor = (props) => {
     const BUN = "bun"
@@ -39,21 +40,21 @@ const BurgerConstructor = (props) => {
             <section className={(cl.ingredient__wrapper, "ml-10 mt-20")}>
 
                 {bunIngredient
-                    ? <li style={{ listStyle: "none" }} onClick={() => openIngredientDetails(bunIngredient)}>
+                    ? <li className={cl.ingredient__list_lock} onClick={() => openIngredientDetails(bunIngredient)}>
                         <IngredientConstructor positionText="(верх)" bun={true} types="top" {...bunIngredient} key={bunIngredient._id} />
                     </li>
                     : ''}
 
                 <ul className={(cl.ingredient__list)}>
                     {ingredientsWithoutBuns.map((item) => (
-                        <li onClick={() => openIngredientDetails(item)}>
+                        <li key={item._id} onClick={() => openIngredientDetails(item)}>
                             <IngredientConstructor positionText="" {...item} key={item._id} />
                         </li>
                     ))}
                 </ul>
 
                 {bunIngredient
-                    ? <li style={{ listStyle: "none" }} onClick={() => openIngredientDetails(bunIngredient)}>
+                    ? <li className={cl.ingredient__list_lock} onClick={() => openIngredientDetails(bunIngredient)}>
                         <IngredientConstructor positionText="(низ)" bun={true} types="bottom" {...bunIngredient} />
                     </li>
                     : ''}
@@ -69,5 +70,7 @@ const BurgerConstructor = (props) => {
         </>
     );
 };
+
+types(BurgerConstructor)
 
 export default BurgerConstructor;

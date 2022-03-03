@@ -4,6 +4,8 @@ import cl from "./burger-ingredients.module.css";
 import Ingredient from "./ingredient/ingredient";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import multiCl from "classnames"
+import { types } from "../../utils/types";
 
 const BurgerIngredients = (props) => {
 
@@ -47,7 +49,7 @@ const BurgerIngredients = (props) => {
             <section className={cl.ingredients__section}>
                 <h1 className={cl.title, "text text_type_main-large"}>Соберите бургер</h1>
 
-                <div className={cl.ingredient__links, "mb-8"} style={{ display: "flex" }}>
+                <div className={multiCl(cl.ingredient__links, "mb-8")}>
                     <a className={cl.ingredient__tab} onClick={() => bunsRef.current.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
@@ -86,5 +88,7 @@ const BurgerIngredients = (props) => {
         </>
     );
 };
+
+types(BurgerIngredients)
 
 export default BurgerIngredients;

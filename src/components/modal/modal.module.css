@@ -10,7 +10,6 @@
     visibility: hidden;
     opacity: 0;
     transition: opacity 500ms, visibility 500ms;
-    background: rgba(0,0,0, 0.6);
 }
 
 .modal__content {

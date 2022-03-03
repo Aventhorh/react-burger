@@ -1,5 +1,6 @@
 import cl from "./ingredient-details.module.css";
 import multiCl from "classnames"
+import { types } from "../../utils/types";
 
 const IngredientDetails = (props) => {
   return (
@@ -38,4 +39,5 @@ const IngredientDetails = (props) => {
   );
 };
 
+types(IngredientDetails)
 export default IngredientDetails;

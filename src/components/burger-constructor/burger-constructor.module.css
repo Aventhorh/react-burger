@@ -43,3 +43,7 @@
     height: 64px;
     display: flex;
   }
+
+  .ingredient__list_lock{
+    list-style: none;
+  }
