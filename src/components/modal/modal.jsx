@@ -25,8 +25,8 @@ const Modal = ({ children, visible, setVisible }) => {
     }, []);
 
     return ReactDOM.createPortal(
-        <div className={rootClasses.join(' ')} onClick={() => setVisible(false)}>
-            <ModalOverlay />
+        <div className={rootClasses.join(' ')} >
+            <ModalOverlay onClick={() => setVisible(false)}/>
             <div className={cl.modal__content} onClick={(evt) => evt.stopPropagation()}>
                 <button className={cl.modal__close} onClick={() => setVisible(false)}>
                     <CloseIcon type="primary" />

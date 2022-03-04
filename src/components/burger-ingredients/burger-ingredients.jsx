@@ -5,7 +5,7 @@ import Ingredient from "./ingredient/ingredient";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import multiCl from "classnames"
-import { types } from "../../utils/types";
+import PropTypes from 'prop-types';
 
 const BurgerIngredients = (props) => {
 
@@ -88,7 +88,23 @@ const BurgerIngredients = (props) => {
         </>
     );
 };
-
-types(BurgerIngredients)
+BurgerIngredients.propTypes = {
+    props: PropTypes.arrayOf(
+        PropTypes.shape({
+            _id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            type: PropTypes.string.isRequired,
+            proteins: PropTypes.number,
+            fat: PropTypes.number,
+            carbohydrates: PropTypes.number,
+            calories: PropTypes.number,
+            price: PropTypes.number.isRequired,
+            image: PropTypes.string.isRequired,
+            image_mobile: PropTypes.string,
+            image_large: PropTypes.string,
+            __v: PropTypes.number,
+        })
+    ).isRequired
+}
 
 export default BurgerIngredients;

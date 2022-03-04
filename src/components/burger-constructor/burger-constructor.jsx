@@ -8,12 +8,12 @@ import IngredientConstructor from "./ingredient-constructor/ingredient-construct
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
-import { types } from "../../utils/types";
+import PropTypes from 'prop-types';
 
 const BurgerConstructor = (props) => {
     const BUN = "bun"
     const ingredients = props.ingredientsData
-  
+
     const [modalIngredient, setModalIngredient] = useState(false)
     const [modalOrder, setModalOrder] = useState(false)
     const [selectedIngredient, setSelectedIngredient] = useState()
@@ -31,7 +31,7 @@ const BurgerConstructor = (props) => {
     return (
         <>
             <Modal visible={modalOrder} setVisible={setModalOrder}>
-                <OrderDetails/>
+                <OrderDetails />
             </Modal>
             <Modal visible={modalIngredient} setVisible={setModalIngredient}>
                 <IngredientDetails {...selectedIngredient} />
@@ -70,7 +70,23 @@ const BurgerConstructor = (props) => {
         </>
     );
 };
-
-types(BurgerConstructor)
+BurgerConstructor.propTypes = {
+    props: PropTypes.arrayOf(
+        PropTypes.shape({
+            _id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            type: PropTypes.string.isRequired,
+            proteins: PropTypes.number,
+            fat: PropTypes.number,
+            carbohydrates: PropTypes.number,
+            calories: PropTypes.number,
+            price: PropTypes.number.isRequired,
+            image: PropTypes.string.isRequired,
+            image_mobile: PropTypes.string,
+            image_large: PropTypes.string,
+            __v: PropTypes.number,
+        })
+    ).isRequired
+}
 
 export default BurgerConstructor;

@@ -1,7 +1,7 @@
 import cl from "./modal-overlay.module.css";
 
-const ModalOverlay = () => {
-  return <div className={cl.overlay}/>;
+const ModalOverlay = (props) => {
+  return <div className={cl.overlay} onClick={props.onClick}/>;
 };
 
 export default ModalOverlay;
