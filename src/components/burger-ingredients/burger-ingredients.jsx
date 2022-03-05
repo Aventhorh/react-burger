@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import cl from "./burger-ingredients.module.css";
 import Ingredient from "./ingredient/ingredient";
@@ -8,21 +8,18 @@ import multiCl from "classnames"
 import PropTypes from 'prop-types';
 import { ingredientType } from "../../utils/types";
 
-const BurgerIngredients = (props) => {
+const BurgerIngredients = ({ props }) => {
 
-    const [current, setCurrent] = useState('Булки')
-    const [modal, setModal] = useState(false)
-    const [selectedIngredient, setSelectedIngredient] = useState()
-
+    const [current, setCurrent] = useState('Булки');
+    const [modal, setModal] = useState(false);
+    const [selectedIngredient, setSelectedIngredient] = useState();
     const bunsRef = useRef(null);
     const saucesRef = useRef(null);
     const mainsRef = useRef(null);
 
-    const ingredients = props.ingredientsData;
-
     const renderIngredient = (item) => (
         <li className={cl.ingredients__item} key={item._id} onClick={() => openIngredientDetails(item)}>
-            <Ingredient {...item} />
+            <Ingredient props={item} />
         </li>
     );
 
@@ -31,20 +28,20 @@ const BurgerIngredients = (props) => {
         setModal(true)
     }
 
-    const ingredientsBun = ingredients.filter((ingredient) => {
+    const ingredientsBun = props.filter((ingredient) => {
         return ingredient.type === "bun";
     });
-    const ingredientsSauce = ingredients.filter((ingredient) => {
+    const ingredientsSauce = props.filter((ingredient) => {
         return ingredient.type === "sauce";
     });
-    const ingredientsMain = ingredients.filter((ingredient) => {
+    const ingredientsMain = props.filter((ingredient) => {
         return ingredient.type === "main";
     });
 
     return (
         <>
             <Modal visible={modal} setVisible={setModal}>
-                <IngredientDetails {...selectedIngredient} />
+                {selectedIngredient === undefined ? <></> : <IngredientDetails props={selectedIngredient} />}
             </Modal>
 
             <section className={cl.ingredients__section}>
@@ -90,7 +87,7 @@ const BurgerIngredients = (props) => {
     );
 };
 BurgerIngredients.propTypes = {
-    ingredientsData: PropTypes.arrayOf(ingredientType).isRequired
+    props: PropTypes.arrayOf(ingredientType).isRequired
 }
 
 export default BurgerIngredients;

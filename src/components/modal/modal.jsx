@@ -3,7 +3,7 @@ import cl from './modal.module.css';
 import { useEffect } from "react";
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import ReactDOM from "react-dom";
-
+import PropTypes from 'prop-types';
 
 const Modal = ({ children, visible, setVisible }) => {
 
@@ -37,5 +37,10 @@ const Modal = ({ children, visible, setVisible }) => {
         document.getElementById("modals")
     );
 };
+Modal.propTypes = {
+    children: PropTypes.element.isRequired,
+    visible: PropTypes.bool.isRequired,
+    setVisible: PropTypes.func.isRequired
+}
 
 export default Modal;

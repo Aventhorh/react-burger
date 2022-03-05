@@ -1,9 +1,8 @@
 import cl from "./ingredient-details.module.css";
 import multiCl from "classnames"
-import PropTypes from 'prop-types';
 import { ingredientType } from "../../utils/types";
 
-const IngredientDetails = (props) => {
+const IngredientDetails = ({ props }) => {
   return (
     <div>
       <h1 className={multiCl("text text_type_main-large pt-3 pb-3", cl.detail__title)}>
@@ -40,7 +39,7 @@ const IngredientDetails = (props) => {
   );
 };
 IngredientDetails.propTypes = {
-  props: PropTypes.arrayOf(ingredientType)
+  props: ingredientType.isRequired
 }
 
 export default IngredientDetails;

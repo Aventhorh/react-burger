@@ -11,21 +11,19 @@ import OrderDetails from "../order-details/order-details";
 import PropTypes from 'prop-types';
 import { ingredientType } from "../../utils/types";
 
-const BurgerConstructor = (props) => {
-    const BUN = "bun"
-    const ingredients = props.ingredientsData
 
+const BurgerConstructor = ({ props }) => {
+    const BUN = "bun"
     const [modalIngredient, setModalIngredient] = useState(false)
     const [modalOrder, setModalOrder] = useState(false)
     const [selectedIngredient, setSelectedIngredient] = useState()
-
     const openIngredientDetails = (item) => {
         setSelectedIngredient(item)
         setModalIngredient(true)
     }
 
-    const bunIngredient = ingredients.find(item => item.type === BUN)
-    const ingredientsWithoutBuns = ingredients.filter((ingredient) => {
+    const bunIngredient = props.find(item => item.type === BUN)
+    const ingredientsWithoutBuns = props.filter((ingredient) => {
         return ingredient.type != "bun";
     });
 
@@ -35,28 +33,28 @@ const BurgerConstructor = (props) => {
                 <OrderDetails />
             </Modal>
             <Modal visible={modalIngredient} setVisible={setModalIngredient}>
-                <IngredientDetails {...selectedIngredient} />
+                {selectedIngredient == undefined ? <></> : <IngredientDetails props={selectedIngredient} />}
             </Modal>
 
             <section className={(cl.ingredient__wrapper, "ml-10 mt-20")}>
 
                 {bunIngredient
                     ? <li className={cl.ingredient__list_lock} onClick={() => openIngredientDetails(bunIngredient)}>
-                        <IngredientConstructor positionText="(верх)" bun={true} types="top" {...bunIngredient} key={bunIngredient._id} />
+                        <IngredientConstructor positionText="(верх)" bun={true} types="top" props={bunIngredient} key={bunIngredient._id} />
                     </li>
                     : ''}
 
                 <ul className={(cl.ingredient__list)}>
                     {ingredientsWithoutBuns.map((item) => (
                         <li key={item._id} onClick={() => openIngredientDetails(item)}>
-                            <IngredientConstructor positionText="" {...item} key={item._id} />
+                            <IngredientConstructor positionText="" props={item} key={item._id} />
                         </li>
                     ))}
                 </ul>
 
                 {bunIngredient
                     ? <li className={cl.ingredient__list_lock} onClick={() => openIngredientDetails(bunIngredient)}>
-                        <IngredientConstructor positionText="(низ)" bun={true} types="bottom" {...bunIngredient} />
+                        <IngredientConstructor positionText="(низ)" bun={true} types="bottom" props={bunIngredient} />
                     </li>
                     : ''}
 
@@ -72,7 +70,7 @@ const BurgerConstructor = (props) => {
     );
 };
 BurgerConstructor.propTypes = {
-    ingredientsData: PropTypes.arrayOf(ingredientType).isRequired
+    props: PropTypes.arrayOf(ingredientType).isRequired
 }
 
 export default BurgerConstructor;

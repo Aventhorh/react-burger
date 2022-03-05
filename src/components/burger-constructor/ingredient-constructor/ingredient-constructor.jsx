@@ -7,7 +7,7 @@ import multiCl from "classnames"
 import PropTypes from 'prop-types';
 import { ingredientType } from "../../../utils/types";
 
-const IngredientConstructor = ({ bun, types, positionText, ...props }) => {
+const IngredientConstructor = ({ bun, types, positionText, props }) => {
     return (
         <div className={bun === true ? cl.ingredient__listItemLocked : cl.ingredient__listItem} >
             <div className={multiCl(cl.ingredient__item, "mb-4")}>
@@ -23,7 +23,7 @@ const IngredientConstructor = ({ bun, types, positionText, ...props }) => {
     );
 };
 IngredientConstructor.propTypes = {
-    ingredientsData: PropTypes.arrayOf(ingredientType)
+    props: ingredientType.isRequired
 }
 
 export default IngredientConstructor;

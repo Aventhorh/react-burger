@@ -26,8 +26,8 @@ function App() {
     <div className={cl.app}>
       <AppHeader />
       <div className={cl.app__burgerMakingSection} >
-        <BurgerIngredients ingredientsData={ingredients} />
-        <BurgerConstructor ingredientsData={ingredients} />
+        <BurgerIngredients props={ingredients} />
+        <BurgerConstructor props={ingredients} />
       </div>
     </div>
   );
