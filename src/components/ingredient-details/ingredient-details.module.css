@@ -1,0 +1,34 @@
+.detail__image {
+    width: 480px;
+    height: 240px;
+    display: block;
+}
+
+.detail__title {
+    width: 640px;
+}
+  
+.detail__name {
+    align-self: center;
+    text-align: center;
+    width: 520px;
+}
+
+.detail__wrapper{
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.detail__item{
+    align-items: center;
+    text-align: center;
+}
+
+.detail__section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -1,42 +1,76 @@
-import React, { useState } from "react";
 import {
     Button,
     CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useState } from "react";
 import cl from "./burger-constructor.module.css";
 import IngredientConstructor from "./ingredient-constructor/ingredient-constructor";
-const BurgerConstructor = (...props) => {
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import OrderDetails from "../order-details/order-details";
+import PropTypes from 'prop-types';
+import { ingredientType } from "../../utils/types";
 
-    const [ingredient,] = useState(props[0].ingredientsData)
 
+const BurgerConstructor = ({ props }) => {
     const BUN = "bun"
+    const [modalIngredient, setModalIngredient] = useState(false)
+    const [modalOrder, setModalOrder] = useState(false)
+    const [selectedIngredient, setSelectedIngredient] = useState()
+    const openIngredientDetails = (item) => {
+        setSelectedIngredient(item)
+        setModalIngredient(true)
+    }
 
-    const bunIngredient = ingredient.find(item => item.type === BUN)
-
-    const ingredientsWithoutBuns = ingredient.filter((ingredient) => {
+    const bunIngredient = props.find(item => item.type === BUN)
+    const ingredientsWithoutBuns = props.filter((ingredient) => {
         return ingredient.type != "bun";
     });
 
     return (
-        <section className={(cl.ingredientConstWrapper, "ml-10 mt-20")}>
+        <>
+            <Modal visible={modalOrder} setVisible={setModalOrder}>
+                <OrderDetails />
+            </Modal>
+            <Modal visible={modalIngredient} setVisible={setModalIngredient}>
+                {selectedIngredient == undefined ? <></> : <IngredientDetails props={selectedIngredient} />}
+            </Modal>
 
-            {bunIngredient ? <IngredientConstructor positionText="(верх)" bun={true} types="top" {...bunIngredient} key={bunIngredient._id} /> : ''}
+            <section className={(cl.ingredient__wrapper, "ml-10 mt-20")}>
 
-            <ul className={(cl.ingredientConstList)}>
-                {ingredientsWithoutBuns.map((item) => (<IngredientConstructor {...item} key={item._id} />))}
-            </ul>
+                {bunIngredient
+                    ? <li className={cl.ingredient__list_lock} onClick={() => openIngredientDetails(bunIngredient)}>
+                        <IngredientConstructor positionText="(верх)" bun={true} types="top" props={bunIngredient} key={bunIngredient._id} />
+                    </li>
+                    : ''}
 
-            {bunIngredient ? <IngredientConstructor positionText="(низ)" bun={true} types="bottom" {...bunIngredient}/> : ''}
+                <ul className={(cl.ingredient__list)}>
+                    {ingredientsWithoutBuns.map((item) => (
+                        <li key={item._id} onClick={() => openIngredientDetails(item)}>
+                            <IngredientConstructor positionText="" props={item} key={item._id} />
+                        </li>
+                    ))}
+                </ul>
 
-            <div className={cl.ingredientConstResultsPrice}>
-                <p className={(cl.ingredientConstRegistration, "mr-10")}>
-                    <span className="text text_type_digits-medium mr-2">1255</span>
-                    <CurrencyIcon type="primary" />
-                </p>
-                <Button type="primary" size="large">Оформить заказ</Button>
-            </div>
-        </section>
+                {bunIngredient
+                    ? <li className={cl.ingredient__list_lock} onClick={() => openIngredientDetails(bunIngredient)}>
+                        <IngredientConstructor positionText="(низ)" bun={true} types="bottom" props={bunIngredient} />
+                    </li>
+                    : ''}
+
+                <div className={cl.ingredient__resultsPrice}>
+                    <p className={(cl.ingredient__registration, "mr-10")}>
+                        <span className="text text_type_digits-medium mr-2">1255</span>
+                        <CurrencyIcon type="primary" />
+                    </p>
+                    <Button type="primary" size="large" onClick={() => setModalOrder(true)}>Оформить заказ</Button>
+                </div>
+            </section>
+        </>
     );
 };
+BurgerConstructor.propTypes = {
+    props: PropTypes.arrayOf(ingredientType).isRequired
+}
 
 export default BurgerConstructor;
