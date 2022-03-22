@@ -3,7 +3,7 @@ import { apiIngredients } from '../../utils/api';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import { ApiIngredientsContext } from "../services/appContext";
+import { ApiIngredientsContext } from "../../services/appContext";
 import cl from './app.module.css'
 
 

@@ -2,14 +2,15 @@ import {
     Button,
     CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import cl from "./burger-constructor.module.css";
 import IngredientConstructor from "./ingredient-constructor/ingredient-constructor";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
-import { ApiIngredientsContext, selectedOrder } from "../services/appContext";
-import { postOrder, testttt } from "../../utils/api";
+import { ApiIngredientsContext, selectedOrder } from "../../services/appContext";
+import { postOrder } from "../../utils/api";
+import multiCl from "classnames"
 
 const BurgerConstructor = () => {
     const ingredients = useContext(ApiIngredientsContext)
@@ -22,8 +23,8 @@ const BurgerConstructor = () => {
         setModalIngredient(true)
     }
     const [order, setOrder] = useState()
-
     let num;
+    
     const bunIngredient = ingredients.find(item => item.type === BUN)
     const ingredientsWithoutBuns = ingredients.filter((ingredient) => {
         return ingredient.type != "bun";
@@ -36,6 +37,12 @@ const BurgerConstructor = () => {
             return addedIngredients;
         }
     }
+
+    useEffect(() => {
+        if(modalOrder === false){
+            setOrder('')
+        }
+      }, [modalOrder])
 
     async function fetchOrders() {
         try {
@@ -50,6 +57,7 @@ const BurgerConstructor = () => {
         <>
             <Modal visible={modalOrder} setVisible={setModalOrder}>
                 <selectedOrder.Provider value={order}>
+                    {}
                     <OrderDetails />
                 </selectedOrder.Provider>
             </Modal>
@@ -57,7 +65,7 @@ const BurgerConstructor = () => {
                 {selectedIngredient == undefined ? <></> : <IngredientDetails props={selectedIngredient} />}
             </Modal>
 
-            <section className={(cl.ingredient__wrapper, "ml-10 mt-20")}>
+            <section className={multiCl(cl.ingredient__wrapper, "ml-10 mt-20")}>
 
                 {bunIngredient
                     ? <li className={cl.ingredient__list_lock} onClick={() => openIngredientDetails(bunIngredient)}>
@@ -65,7 +73,7 @@ const BurgerConstructor = () => {
                     </li>
                     : ''}
 
-                <ul className={(cl.ingredient__list)}>
+                <ul className={cl.ingredient__list}>
                     {ingredientsWithoutBuns.map((item) => (
                         <li key={item._id} onClick={() => openIngredientDetails(item)}>
                             <IngredientConstructor positionText="" props={item} key={item._id} />
@@ -80,7 +88,7 @@ const BurgerConstructor = () => {
                     : ''}
 
                 <div className={cl.ingredient__resultsPrice}>
-                    <p className={(cl.ingredient__registration, "mr-10")}>
+                    <p className={multiCl(cl.ingredient__registration, "mr-10")}>
                         <span className="text text_type_digits-medium mr-2">
                             {bunIngredient === undefined
                                 ? <></>
@@ -90,9 +98,7 @@ const BurgerConstructor = () => {
                     </p>
                     <Button type="primary" size="large" onClick={() => {
                         fetchOrders()
-                        if (order !== undefined) {
-                            setModalOrder(true);
-                        }
+                        setModalOrder(true);
                     }}>Оформить заказ</Button>
                 </div>
             </section>

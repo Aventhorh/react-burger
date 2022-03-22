@@ -1,11 +1,11 @@
 import multiCl from "classnames";
 import { useContext } from "react";
 import checkMark from "../../images/icon-check-mark.svg";
-import { selectedOrder } from "../services/appContext";
+import { selectedOrder } from "../../services/appContext";
 import cl from "./order-details.module.css";
 
 const OrderDetails = () => {
-    const order = useContext(selectedOrder)
+    const order = useContext(selectedOrder);
     return (
         <>
             <div className={cl.order}>
