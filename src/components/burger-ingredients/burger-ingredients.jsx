@@ -1,15 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import cl from "./burger-ingredients.module.css";
 import Ingredient from "./ingredient/ingredient";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import multiCl from "classnames"
-import PropTypes from 'prop-types';
-import { ingredientType } from "../../utils/types";
+import { ApiIngredientsContext } from "../services/appContext";
 
-const BurgerIngredients = ({ props }) => {
-
+const BurgerIngredients = () => {
+    const ingredients = useContext(ApiIngredientsContext)
     const [current, setCurrent] = useState('Булки');
     const [modal, setModal] = useState(false);
     const [selectedIngredient, setSelectedIngredient] = useState();
@@ -28,13 +27,13 @@ const BurgerIngredients = ({ props }) => {
         setModal(true)
     }
 
-    const ingredientsBun = props.filter((ingredient) => {
+    const ingredientsBun = ingredients.filter((ingredient) => {
         return ingredient.type === "bun";
     });
-    const ingredientsSauce = props.filter((ingredient) => {
+    const ingredientsSauce = ingredients.filter((ingredient) => {
         return ingredient.type === "sauce";
     });
-    const ingredientsMain = props.filter((ingredient) => {
+    const ingredientsMain = ingredients.filter((ingredient) => {
         return ingredient.type === "main";
     });
 
@@ -86,8 +85,5 @@ const BurgerIngredients = ({ props }) => {
         </>
     );
 };
-BurgerIngredients.propTypes = {
-    props: PropTypes.arrayOf(ingredientType).isRequired
-}
 
 export default BurgerIngredients;

@@ -2,17 +2,17 @@ import {
     Button,
     CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import cl from "./burger-constructor.module.css";
 import IngredientConstructor from "./ingredient-constructor/ingredient-constructor";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
-import PropTypes from 'prop-types';
-import { ingredientType } from "../../utils/types";
+import { ApiIngredientsContext, selectedOrder } from "../services/appContext";
+import { postOrder, testttt } from "../../utils/api";
 
-
-const BurgerConstructor = ({ props }) => {
+const BurgerConstructor = () => {
+    const ingredients = useContext(ApiIngredientsContext)
     const BUN = "bun"
     const [modalIngredient, setModalIngredient] = useState(false)
     const [modalOrder, setModalOrder] = useState(false)
@@ -21,16 +21,37 @@ const BurgerConstructor = ({ props }) => {
         setSelectedIngredient(item)
         setModalIngredient(true)
     }
+    const [order, setOrder] = useState()
 
-    const bunIngredient = props.find(item => item.type === BUN)
-    const ingredientsWithoutBuns = props.filter((ingredient) => {
+    let num;
+    const bunIngredient = ingredients.find(item => item.type === BUN)
+    const ingredientsWithoutBuns = ingredients.filter((ingredient) => {
         return ingredient.type != "bun";
     });
+
+    const addIngredients = () => {
+        if (bunIngredient !== undefined) {
+            let addedIngredients = ingredientsWithoutBuns.map(item => item._id);
+            addedIngredients.push(bunIngredient._id, bunIngredient._id);
+            return addedIngredients;
+        }
+    }
+
+    async function fetchOrders() {
+        try {
+            const getOrder = await postOrder(addIngredients())
+            setOrder(getOrder.data.order.number)
+        } catch {
+            console.log("Ошибка взаимодействия с сервером")
+        }
+    }
 
     return (
         <>
             <Modal visible={modalOrder} setVisible={setModalOrder}>
-                <OrderDetails />
+                <selectedOrder.Provider value={order}>
+                    <OrderDetails />
+                </selectedOrder.Provider>
             </Modal>
             <Modal visible={modalIngredient} setVisible={setModalIngredient}>
                 {selectedIngredient == undefined ? <></> : <IngredientDetails props={selectedIngredient} />}
@@ -60,17 +81,23 @@ const BurgerConstructor = ({ props }) => {
 
                 <div className={cl.ingredient__resultsPrice}>
                     <p className={(cl.ingredient__registration, "mr-10")}>
-                        <span className="text text_type_digits-medium mr-2">1255</span>
+                        <span className="text text_type_digits-medium mr-2">
+                            {bunIngredient === undefined
+                                ? <></>
+                                : bunIngredient.price * 2 + ingredientsWithoutBuns.map(item => num += item.price, num = 0).reverse()[0]}
+                        </span>
                         <CurrencyIcon type="primary" />
                     </p>
-                    <Button type="primary" size="large" onClick={() => setModalOrder(true)}>Оформить заказ</Button>
+                    <Button type="primary" size="large" onClick={() => {
+                        fetchOrders()
+                        if (order !== undefined) {
+                            setModalOrder(true);
+                        }
+                    }}>Оформить заказ</Button>
                 </div>
             </section>
         </>
     );
 };
-BurgerConstructor.propTypes = {
-    props: PropTypes.arrayOf(ingredientType).isRequired
-}
 
 export default BurgerConstructor;

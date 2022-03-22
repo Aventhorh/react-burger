@@ -3,6 +3,7 @@ import { apiIngredients } from '../../utils/api';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
+import { ApiIngredientsContext } from "../services/appContext";
 import cl from './app.module.css'
 
 
@@ -26,8 +27,10 @@ function App() {
     <div className={cl.app}>
       <AppHeader />
       <div className={cl.app__burgerMakingSection} >
-        <BurgerIngredients props={ingredients} />
-        <BurgerConstructor props={ingredients} />
+        <ApiIngredientsContext.Provider value={ingredients}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </ApiIngredientsContext.Provider>
       </div>
     </div>
   );

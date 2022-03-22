@@ -4,7 +4,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import cl from "./ingredient-constructor.module.css";
 import multiCl from "classnames"
-import PropTypes from 'prop-types';
 import { ingredientType } from "../../../utils/types";
 
 const IngredientConstructor = ({ bun, types, positionText, props }) => {
