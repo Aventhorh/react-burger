@@ -19,9 +19,8 @@ const IngredientConstructor = ({ bun, types, positionText, props, index, moveLis
             isDragging: monitor.isDragging(),
         }),
     })
- 
- 
-    const [, dropRef] = useDrop({
+
+    const [{ isHovered }, dropRef] = useDrop({
         accept: 'item',
         hover: (item, monitor) => {
             const dragIndex = item.index
@@ -29,22 +28,26 @@ const IngredientConstructor = ({ bun, types, positionText, props, index, moveLis
             const hoverBoundingRect = ref.current?.getBoundingClientRect()
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
             const hoverActualY = monitor.getClientOffset().y - hoverBoundingRect
- 
+
             if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return
             if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return
- 
+
             moveListItem(dragIndex, hoverIndex)
             item.index = hoverIndex
-        },
+        }, 
+        collect: (monitor) => ({
+            isDragging: monitor.isOver(),
+        }),
     })
- 
+
     const ref = useRef(null)
     const dragDropRef = dragRef(dropRef(ref))
 
+    const itemHover = isHovered ? cl.ingredient__hovered  : '';
 
     return (
-        <div ref={dragDropRef} className={bun === true ? cl.ingredient__listItemLocked : cl.ingredient__listItem} >
-            <div className={multiCl(cl.ingredient__item, "mb-3")}>
+        <div ref={dragDropRef} className={multiCl(bun === true ? cl.ingredient__listItemLocked : cl.ingredient__listItem)} >
+            <div className={multiCl(cl.ingredient__item, "mb-3", itemHover)}>
                 <button className={cl.ingredient__button}>
                     {bun === true ? '' : <DragIcon type="primary" />}
                 </button>

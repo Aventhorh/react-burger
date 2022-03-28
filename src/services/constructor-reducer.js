@@ -20,12 +20,12 @@ export const burgerConstructorReducer = (state = defaultBurgerConstructor, actio
             arr.splice(action.payload + 1, 1);
             return { ...state, addedIngredients: arr };
         case "DRAG_INGREDIENT":
-            const dragItem = state.addedIngredients[action.payload]
-            const hoverItem = state.addedIngredients[action.payloadTwo]
-            
-                const updatedArr = [...state.addedIngredients]
-                updatedArr[action.payload] = hoverItem
-                updatedArr[action.payloadTwo] = dragItem
+            const dragItem = state.addedIngredients[action.payload + 1]
+            const hoverItem = state.addedIngredients[action.payloadTwo + 1]
+
+            const updatedArr = [...state.addedIngredients]
+            updatedArr[action.payload + 1] = hoverItem
+            updatedArr[action.payloadTwo + 1] = dragItem
             return { ...state, addedIngredients: updatedArr }
         default:
             return state;

@@ -28,3 +28,8 @@
     margin-right: 40px;
     box-sizing: border-box;
   }
+
+  .ingredient__hovered{
+    opacity: 1;
+    border: 2px solid red;
+  }

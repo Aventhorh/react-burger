@@ -22,12 +22,12 @@ const BurgerConstructor = () => {
     }, [selectIngredients])
 
     const [ingredient, setIngredient] = useState(selectIngredients)
- 
+
     const movePetListItem = useCallback(
         (dragIndex, hoverIndex) => {
-                dispatch({ type: "DRAG_INGREDIENT", payload: dragIndex, payloadTwo: hoverIndex })
-            },
-        [])
+            dispatch({ type: "DRAG_INGREDIENT", payload: dragIndex, payloadTwo: hoverIndex })
+        },
+        [ingredient])
 
     const BUN = "bun"
     const [modalIngredient, setModalIngredient] = useState(false)
@@ -52,6 +52,7 @@ const BurgerConstructor = () => {
     const ingredientsWithoutBuns = ingredient.filter((ingredient) => {
         return ingredient.type != "bun";
     });
+    console.log(ingredientsWithoutBuns)
 
     const addIngredients = () => {
         if (bunIngredient !== undefined) {
@@ -110,7 +111,7 @@ const BurgerConstructor = () => {
                         <ul className={cl.ingredient__list}>
                             {ingredientsWithoutBuns.map((item, index) => (
                                 <li key={index} onClick={() => openIngredientDetails(item)}>
-                                    <IngredientConstructor positionText="" props={item} index={index} moveListItem={movePetListItem}/>
+                                    <IngredientConstructor positionText="" props={item} index={index} moveListItem={movePetListItem} />
                                 </li>
                             ))}
                         </ul>
