@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { DndProvider } from "react-dnd";
+import { useDispatch } from "react-redux";
 import { apiIngredients } from '../../utils/api';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import { ApiIngredientsContext } from "../../services/appContext";
 import cl from './app.module.css'
-
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
-  const [ingredients, setIngredients] = useState([])
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     fetchIngredients()
@@ -17,7 +19,7 @@ function App() {
   async function fetchIngredients() {
     try {
       const ingredient = await apiIngredients
-      setIngredients(ingredient.data.data)
+      dispatch({ type: "SET_INGREDIENTS", payload: ingredient.data.data })
     } catch {
       console.log("Ошибка взаимодействия с сервером")
     }
@@ -27,10 +29,10 @@ function App() {
     <div className={cl.app}>
       <AppHeader />
       <div className={cl.app__burgerMakingSection} >
-        <ApiIngredientsContext.Provider value={ingredients}>
+        <DndProvider backend={HTML5Backend}>
           <BurgerIngredients />
           <BurgerConstructor />
-        </ApiIngredientsContext.Provider>
+        </DndProvider>
       </div>
     </div>
   );
