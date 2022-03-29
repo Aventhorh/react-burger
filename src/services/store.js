@@ -1,4 +1,5 @@
-import { combineReducers, createStore } from "redux"
+import { combineReducers, createStore, applyMiddleware } from "redux"
+import thunk from 'redux-thunk';
 import { burgerConstructorReducer } from "./constructor-reducer"
 import { detailsReducer } from "./details-reducer"
 import { burgerIngredientsReducer } from "./ingredients-reducer"
@@ -11,4 +12,4 @@ const rootReducer = combineReducers({
     details: detailsReducer
   })
 
- export const store = createStore(rootReducer)
+ export const store = createStore(rootReducer, applyMiddleware(thunk))

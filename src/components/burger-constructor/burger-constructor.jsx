@@ -6,12 +6,15 @@ import { useCallback, useEffect, useState } from "react";
 import cl from "./burger-constructor.module.css";
 import IngredientConstructor from "./ingredient-constructor/ingredient-constructor";
 import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
-import { postOrder } from "../../utils/api";
+import { apiOrderConfig } from "../../utils/api";
 import multiCl from "classnames"
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
+import { ADD_INGREDIENTS, DRAG_INGREDIENT, GET_ORDER } from "../../services/actions/actions";
+import { fetchOrders } from "../../services/actions/api-thunk";
+import { v4 as uuidv4 } from 'uuid';
+
 
 const BurgerConstructor = () => {
     const dispatch = useDispatch()
@@ -23,28 +26,15 @@ const BurgerConstructor = () => {
 
     const [ingredient, setIngredient] = useState(selectIngredients)
 
-    const movePetListItem = useCallback(
+    const moveListItem = useCallback(
         (dragIndex, hoverIndex) => {
-            dispatch({ type: "DRAG_INGREDIENT", payload: dragIndex, payloadTwo: hoverIndex })
+            dispatch({ type: DRAG_INGREDIENT, payload: dragIndex, payloadTwo: hoverIndex })
         },
         [ingredient])
 
     const BUN = "bun"
-    const [modalIngredient, setModalIngredient] = useState(false)
-    const [modalOrder, setModalOrder] = useState(false)
 
-    const details = useSelector(state => state.details.details)
-
-    const openIngredientDetails = (item) => {
-        dispatch({ type: "ADD_DETAILS", payload: item })
-        setModalIngredient(true)
-    }
-
-    useEffect(() => {
-        if (modalIngredient === false) {
-            dispatch({ type: "REMOVE_DETAILS", payload: {} })
-        }
-    }, [modalIngredient])
+    const [modalOrder, setModalOrder] = useState(false);
 
     let num;
 
@@ -52,7 +42,6 @@ const BurgerConstructor = () => {
     const ingredientsWithoutBuns = ingredient.filter((ingredient) => {
         return ingredient.type != "bun";
     });
-    console.log(ingredientsWithoutBuns)
 
     const addIngredients = () => {
         if (bunIngredient !== undefined) {
@@ -64,23 +53,14 @@ const BurgerConstructor = () => {
 
     useEffect(() => {
         if (modalOrder === false) {
-            dispatch({ type: "GET_ORDER", payload: '' })
+            dispatch({ type: GET_ORDER, payload: '' })
         }
     }, [modalOrder])
-
-    async function fetchOrders() {
-        try {
-            const getOrder = await postOrder(addIngredients())
-            dispatch({ type: "GET_ORDER", payload: getOrder.data.order.number })
-        } catch {
-            console.log("Ошибка взаимодействия с сервером")
-        }
-    }
 
     const [{ isHover }, dropTarget] = useDrop({
         accept: "checkedIngredient",
         drop(itemId) {
-            dispatch({ type: "ADD_INGREDIENTS", payload: itemId });
+            dispatch({ type: ADD_INGREDIENTS, payload: itemId });
         },
         collect: monitor => ({
             isHover: monitor.isOver(),
@@ -94,30 +74,27 @@ const BurgerConstructor = () => {
             <Modal visible={modalOrder} setVisible={setModalOrder}>
                 <OrderDetails />
             </Modal>
-            <Modal visible={modalIngredient} setVisible={setModalIngredient}>
-                {details === undefined ? <></> : <IngredientDetails props={details} />}
-            </Modal>
 
             <section className={multiCl(cl.ingredient__wrapper, "ml-10 mt-20")} ref={dropTarget} >
                 {bunIngredient === undefined
                     ? <section className={multiCl(cl.ingredient__clear, borderHover)}></section>
                     : <>
                         {bunIngredient
-                            ? <li className={cl.ingredient__list_lock} onClick={() => openIngredientDetails(bunIngredient)}>
+                            ? <li className={cl.ingredient__list_lock}>
                                 <IngredientConstructor positionText="(верх)" bun={true} types="top" props={bunIngredient} key={bunIngredient._id} />
                             </li>
                             : ''}
 
                         <ul className={cl.ingredient__list}>
                             {ingredientsWithoutBuns.map((item, index) => (
-                                <li key={index} onClick={() => openIngredientDetails(item)}>
-                                    <IngredientConstructor positionText="" props={item} index={index} moveListItem={movePetListItem} />
+                                <li key={uuidv4()}>
+                                    <IngredientConstructor positionText="" props={item} index={index} moveListItem={moveListItem} />
                                 </li>
                             ))}
                         </ul>
 
                         {bunIngredient
-                            ? <li className={cl.ingredient__list_lock} onClick={() => openIngredientDetails(bunIngredient)}>
+                            ? <li className={cl.ingredient__list_lock}>
                                 <IngredientConstructor positionText="(низ)" bun={true} types="bottom" props={bunIngredient} />
                             </li>
                             : ''}
@@ -135,7 +112,7 @@ const BurgerConstructor = () => {
                         <CurrencyIcon type="primary" />
                     </p>
                     <Button type="primary" size="large" onClick={() => {
-                        fetchOrders()
+                        dispatch(fetchOrders(apiOrderConfig, addIngredients()))
                         setModalOrder(true);
                     }}>Оформить заказ</Button>
                 </div>

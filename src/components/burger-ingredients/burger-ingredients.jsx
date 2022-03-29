@@ -6,6 +6,7 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import multiCl from "classnames"
 import { useDispatch, useSelector } from "react-redux";
+import { ADD_DETAILS, REMOVE_DETAILS } from "../../services/actions/actions";
 
 const BurgerIngredients = () => {
     const dispatch = useDispatch()
@@ -24,13 +25,13 @@ const BurgerIngredients = () => {
     const details = useSelector(state => state.details.details)
 
     const openIngredientDetails = (item) => {
-        dispatch({ type: "ADD_DETAILS", payload: item })
+        dispatch({ type: ADD_DETAILS, payload: item })
         setModal(true)
     }
 
     useEffect(() => {
         if (modal === false) {
-            dispatch({ type: "REMOVE_DETAILS", payload: {} })
+            dispatch({ type: REMOVE_DETAILS, payload: {} })
         }
     }, [modal])
 

@@ -22,8 +22,8 @@ export const burgerConstructorReducer = (state = defaultBurgerConstructor, actio
         case "DRAG_INGREDIENT":
             const dragItem = state.addedIngredients[action.payload + 1]
             const hoverItem = state.addedIngredients[action.payloadTwo + 1]
-
             const updatedArr = [...state.addedIngredients]
+            
             updatedArr[action.payload + 1] = hoverItem
             updatedArr[action.payloadTwo + 1] = dragItem
             return { ...state, addedIngredients: updatedArr }
