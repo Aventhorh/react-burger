@@ -1,5 +1,4 @@
 import { ADD_INGREDIENTS, DRAG_INGREDIENT, REMOVE_INGREDIENT } from "./actions/actions";
-import { v4 as uuidv4 } from 'uuid';
 
 const defaultBurgerConstructor = {
     addedIngredients: []
@@ -8,7 +7,6 @@ const defaultBurgerConstructor = {
 export const burgerConstructorReducer = (state = defaultBurgerConstructor, action) => {
     switch (action.type) {
         case ADD_INGREDIENTS:
-            action.payload.uuid = uuidv4()
             if (action.payload.type === "bun") {
                 if (state.addedIngredients.find(item => item.type === action.payload.type)) {
                     return {

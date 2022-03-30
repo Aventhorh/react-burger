@@ -11,10 +11,9 @@ import { apiOrderConfig } from "../../utils/api";
 import multiCl from "classnames"
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
-import { ADD_INGREDIENTS, DRAG_INGREDIENT, GET_ORDER } from "../../services/actions/actions";
+import { addIngredientAction, DRAG_INGREDIENT, GET_ORDER } from "../../services/actions/actions";
 import { fetchOrders } from "../../services/actions/api-thunk";
-
-
+import { v4 as uuidv4 } from 'uuid';
 
 const BurgerConstructor = () => {
     const dispatch = useDispatch()
@@ -59,8 +58,8 @@ const BurgerConstructor = () => {
 
     const [{ isHover }, dropTarget] = useDrop({
         accept: "checkedIngredient",
-        drop(itemId) {
-            dispatch({ type: ADD_INGREDIENTS, payload: itemId });
+        drop(item) {
+            dispatch(addIngredientAction({ ...item, uuid: uuidv4() }))
         },
         collect: monitor => ({
             isHover: monitor.isOver(),
