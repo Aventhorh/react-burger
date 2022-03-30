@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import { ADD_INGREDIENTS, DRAG_INGREDIENT, GET_ORDER } from "../../services/actions/actions";
 import { fetchOrders } from "../../services/actions/api-thunk";
-import { v4 as uuidv4 } from 'uuid';
+
 
 
 const BurgerConstructor = () => {
@@ -87,7 +87,7 @@ const BurgerConstructor = () => {
 
                         <ul className={cl.ingredient__list}>
                             {ingredientsWithoutBuns.map((item, index) => (
-                                <li key={uuidv4()}>
+                                <li key={item.uuid}>
                                     <IngredientConstructor positionText="" props={item} index={index} moveListItem={moveListItem} />
                                 </li>
                             ))}

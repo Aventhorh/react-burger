@@ -15,7 +15,6 @@ const IngredientConstructor = ({ bun, types, positionText, props, index, moveLis
         type: 'item',
         item: { index }
     });
-
     
     const [, dropRef] = useDrop({
         accept: 'item',

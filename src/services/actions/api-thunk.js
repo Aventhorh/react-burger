@@ -7,6 +7,7 @@ export const fetchOrders = (postOrder, postData) => {
             "ingredients": postData
         })
         .then(json => dispatch(postOrderAction(json.data.order.number)))
+        .catch(error => console.log(error))
     }
 }
 
@@ -14,5 +15,6 @@ export const fetchIngredients = (getIngredients) => {
     return function(dispatch) {
         axios.get(getIngredients)
         .then(json => dispatch(getIngredientsAction(json.data.data)))
+        .catch(error => console.log(error))
     }
 }
