@@ -1,36 +1,28 @@
-import { useEffect, useState } from "react";
-import { apiIngredients } from '../../utils/api';
+import { useEffect } from "react";
+import { DndProvider } from "react-dnd";
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import { ApiIngredientsContext } from "../../services/appContext";
 import cl from './app.module.css'
-
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { fetchIngredients } from "../../services/actions/api-thunk";
+import { apiIngredientsConfig } from "../../utils/api";
+import { useDispatch } from "react-redux";
 
 function App() {
-  const [ingredients, setIngredients] = useState([])
-
+  const dispatch = useDispatch()
   useEffect(() => {
-    fetchIngredients()
+    dispatch(fetchIngredients(apiIngredientsConfig))
   }, [])
-
-  async function fetchIngredients() {
-    try {
-      const ingredient = await apiIngredients
-      setIngredients(ingredient.data.data)
-    } catch {
-      console.log("Ошибка взаимодействия с сервером")
-    }
-  }
 
   return (
     <div className={cl.app}>
       <AppHeader />
       <div className={cl.app__burgerMakingSection} >
-        <ApiIngredientsContext.Provider value={ingredients}>
+        <DndProvider backend={HTML5Backend}>
           <BurgerIngredients />
           <BurgerConstructor />
-        </ApiIngredientsContext.Provider>
+        </DndProvider>
       </div>
     </div>
   );

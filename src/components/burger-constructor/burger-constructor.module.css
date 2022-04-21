@@ -15,21 +15,30 @@
     background-color: #5a5a74;
   }
 
+  .ingredient__clear{
+    border: 3px dotted #4C4CFF;
+    width: 600px;
+    height: 840px;
+    margin: 0 0 0 50px;
+  }
+  
+  .ingredient__clear_hover{
+    border: 3px solid #3c3cff
+  }
+
   .ingredient__wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
-    min-width: 595px;
   }
   
   .ingredient__list {
     width: 100%;
-    min-height: 80px;
-    margin: 16px 0;
-    padding: 0 8px 0 16px;
+    margin: 0 0 16px 0;
+    padding: 0 8px 0 10px;
     list-style: none;
     box-sizing: border-box;
-    max-height: 657px;
+    height: 657px;
     overflow-y: auto;
   }
   
@@ -41,6 +50,7 @@
   
   .ingredient__registration {
     height: 64px;
+    align-items: center;
     display: flex;
   }
 
