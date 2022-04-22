@@ -6,6 +6,10 @@
 
 **Используемые технологии:**
 
+:white_check_mark: React
+
+:white_check_mark: Redux
+
 :white_check_mark: HTML5
 
 :white_check_mark: CSS (flex, grid)
