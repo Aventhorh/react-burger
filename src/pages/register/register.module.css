@@ -1,0 +1,22 @@
+.title {
+    text-align: center;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 80px;
+}
+  
+.inputContainer > div > div {
+    width: 480px;
+}
+
+.improvedLink {
+    text-align: center;
+  }
+  
+.improvedLinkText {
+    text-decoration: none;
+    color: #4c4cff;
+}

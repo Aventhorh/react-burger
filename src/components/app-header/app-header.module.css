@@ -21,11 +21,11 @@
   }
   
   .header_link {
+    width: 190px;
     text-decoration: none;
     display: flex;
     align-items: center;
     color: #8585ad;
-    margin-right: 16px;
     cursor: pointer;
   }
   

@@ -1,0 +1,39 @@
+.container {
+    max-width: 320px;
+    margin-right: 60px;
+    composes: text_color_inactive from global;
+}
+  
+.tabs {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+  
+.text {
+    margin-top: 80px;
+}
+  
+.link {
+    display: block;
+    text-decoration: none;
+    composes: text_color_inactive from global;
+}
+  
+.link_active {
+    color: white;
+    text-decoration: none;
+    composes: text_color_inactive from global;
+}
+  
+.button {
+    border: none;
+    margin: 0;
+    background: transparent;
+    composes: text_color_inactive from global;
+}
+  
+.button:hover {
+    color: white;
+    cursor: pointer;
+}
