@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";
 import cl from "./ingredient.module.css";
 
 const Ingredient = () => {
-  const details = useSelector((state) => state.details.details);
   return (
     <div className={cl.container}>
-      <IngredientDetails props={details} />
+      <IngredientDetails />
     </div>
   );
 };

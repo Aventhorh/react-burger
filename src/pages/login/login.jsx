@@ -7,7 +7,7 @@ import Form from "../../components/form/form";
 import multiCl from "classnames";
 import cl from "./login.module.css";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { postAuth } from "../../services/actions/api-thunk";
 import { apiAuth } from "../../utils/api";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +17,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const user = useSelector((state) => state.authUserData.userData);
   const handleSubmit = (evt) => {
     evt.preventDefault();

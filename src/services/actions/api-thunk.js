@@ -79,7 +79,7 @@ export const postAuth = (url, email, password) => {
                 return res;
             })
             .then(data => dispatch(postAuthAction(data)))
-            .finally(dispatch(getAuthUserData(apiAuthUserData)))
+            .finally(() => dispatch(getAuthUserData(apiAuthUserData)))
             .catch(error => console.log(error))
     }
 }

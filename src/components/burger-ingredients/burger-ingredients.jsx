@@ -24,24 +24,24 @@ const BurgerIngredients = () => {
   const mainsRef = useRef(null);
   const headsRef = useRef(null);
 
-  const details = useSelector((state) => state.details.details);
+  //   const details = useSelector((state) => state.details.details);
 
-  const openIngredientDetails = (item) => {
-    dispatch({ type: ADD_DETAILS, payload: item });
-    setModal(true);
-  };
+  //   const openIngredientDetails = (item) => {
+  //     dispatch({ type: ADD_DETAILS, payload: item });
+  //     setModal(true);
+  //   };
 
-  useEffect(() => {
-    if (modal === false) {
-      dispatch({ type: REMOVE_DETAILS, payload: {} });
-    }
-  }, [modal]);
+  //   useEffect(() => {
+  //     if (modal === false) {
+  //       dispatch({ type: REMOVE_DETAILS, payload: {} });
+  //     }
+  //   }, [modal]);
 
   const renderIngredient = (item) => (
     <li
       className={cl.ingredients__item}
       key={item._id}
-      onClick={() => openIngredientDetails(item)}
+      //   onClick={() => openIngredientDetails(item)}
     >
       <Ingredient props={item} />
     </li>
@@ -85,9 +85,9 @@ const BurgerIngredients = () => {
 
   return (
     <>
-      <Modal visible={modal} setVisible={setModal}>
-        {details === undefined ? <></> : <IngredientDetails props={details} />}
-      </Modal>
+      {/* <Modal visible={modal} setVisible={setModal}>
+        {details === undefined ? <></> : <IngredientDetails />}
+      </Modal> */}
 
       <section className={cl.ingredients__section}>
         <h1 className={multiCl(cl.title, "text text_type_main-large")}>

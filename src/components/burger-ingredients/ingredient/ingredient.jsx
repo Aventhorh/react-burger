@@ -7,7 +7,7 @@ import { ingredientType } from "../../../utils/types";
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Ingredient = ({ props }) => {
   const [{ isDrag }, dragRef] = useDrag({
@@ -21,6 +21,7 @@ const Ingredient = ({ props }) => {
   const selectIngredients = useSelector(
     (state) => state.constructorBurger.addedIngredients
   );
+  const location = useLocation();
 
   useEffect(() => {
     setCount(selectIngredients.filter((item) => item._id === props._id));
@@ -31,7 +32,10 @@ const Ingredient = ({ props }) => {
       <Link
         className={cl.link}
         key={props._id}
-        to={`/ingredients/${props._id}`}
+        to={{
+          pathname: `/ingredients/${props._id}`,
+          state: { background: location },
+        }}
       >
         <div className={cl.burger__ingredient} ref={dragRef}>
           {count.length > 0 && <Counter count={count.length} size="default" />}

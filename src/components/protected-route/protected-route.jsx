@@ -1,10 +1,19 @@
-import { Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-import Login from "../../pages/login/login";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-const ProtectedRoute = () => {
-  const user = useSelector((state) => state.authUserData.userData);
-  return user.success === true ? <Outlet /> : <Login />;
+const ProtectedRoute = ({ pathRedirect, isAuth }) => {
+  const location = useLocation();
+
+  if (isAuth) {
+    return <Outlet />;
+  }
+
+  return (
+    <Navigate
+      to={pathRedirect || location.state?.from}
+      replace
+      state={{ path: location.pathname }}
+    />
+  );
 };
 
 export default ProtectedRoute;
