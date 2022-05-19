@@ -25,11 +25,11 @@ function App() {
   }, []);
   const location = useLocation();
   const user = useSelector((state) => state.authUserData.userData);
-  let background = location.state && location.state.background;
+  const background = location.state?.background;
   return (
     <div className={cl.app}>
       <AppHeader />
-      <Routes location={background || location}>
+      <Routes location={background ?? location}>
         <Route
           element={
             <ProtectedRoute exact pathRedirect="/login" isAuth={user.success} />
