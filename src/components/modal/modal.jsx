@@ -4,19 +4,17 @@ import { useEffect } from "react";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
 
-const Modal = ({ children, visible }) => {
+const Modal = ({ children, visible, onClose }) => {
   const rootClasses = [cl.modal];
 
   if (visible) {
     rootClasses.push(cl.modal_active);
   }
-  const navigate = useNavigate();
   useEffect(() => {
     const onEscKeydown = (evt) => {
       if (evt.key === "Escape") {
-        navigate("/");
+        onClose();
       }
     };
     document.addEventListener("keydown", onEscKeydown);
@@ -26,12 +24,12 @@ const Modal = ({ children, visible }) => {
 
   return ReactDOM.createPortal(
     <div className={rootClasses.join(" ")}>
-      <ModalOverlay onClose={() => navigate("/")} />
+      <ModalOverlay onClose={() => onClose()} />
       <div
         className={cl.modal__content}
         onClick={(evt) => evt.stopPropagation()}
       >
-        <button className={cl.modal__close} onClick={() => navigate("/")}>
+        <button className={cl.modal__close} onClick={() => onClose()}>
           <CloseIcon type="primary" />
         </button>
         {children}

@@ -7,7 +7,7 @@ import Form from "../../components/form/form";
 import multiCl from "classnames";
 import cl from "./reset-password.module.css";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { postResetPassword } from "../../services/actions/api-thunk";
 import { useDispatch, useSelector } from "react-redux";
 import { apiPasswordReset } from "../../utils/api";
@@ -18,6 +18,7 @@ const ResetPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.authUserData.userData);
+  const forgotPassword = useSelector((state) => state.forgotPass.password);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -25,11 +26,9 @@ const ResetPassword = () => {
     navigate("/login");
   };
 
-  useEffect(() => {
-    if (user.success === true) {
-      return navigate("/");
-    }
-  }, [, user]);
+  if (!forgotPassword) {
+    return <Navigate to={"/forgot-password"} />;
+  }
 
   return (
     <Form onSubmit={handleSubmit}>

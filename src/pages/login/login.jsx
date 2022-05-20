@@ -17,18 +17,13 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
   const user = useSelector((state) => state.authUserData.userData);
+  const location = useLocation();
   const handleSubmit = (evt) => {
     evt.preventDefault();
     dispatch(postAuth(apiAuth, email, password));
-    navigate("/");
+    navigate(-1);
   };
-  useEffect(() => {
-    if (user.success === true) {
-      return navigate("/");
-    }
-  }, [, user]);
 
   return (
     <Form onSubmit={handleSubmit}>

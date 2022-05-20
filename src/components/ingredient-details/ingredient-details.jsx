@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 
 const IngredientDetails = () => {
   const params = useParams();
-
   const ingredientId = (id) => (state) => {
     return state.ingredientsBurger.ingredients.find((ing) => ing._id === id);
   };
@@ -13,6 +12,7 @@ const IngredientDetails = () => {
   if (!ingredient) {
     return <div>Not found</div>;
   }
+
   return (
     <div>
       <h1

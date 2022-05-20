@@ -19,13 +19,17 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 
 function App() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchIngredients(apiIngredientsConfig));
   }, []);
   const location = useLocation();
   const user = useSelector((state) => state.authUserData.userData);
-  const background = location.state?.background;
+  let background = location.state && location.state.background;
+  const onClose = (path) => {
+    navigate(path);
+  };
   return (
     <div className={cl.app}>
       <AppHeader />
@@ -39,27 +43,44 @@ function App() {
         </Route>
         <Route
           element={
-            <ProtectedRoute exact pathRedirect="/" isAuth={!user.success} />
+            <ProtectedRoute
+              exact
+              pathRedirect="/profile"
+              isAuth={!user.success}
+            />
           }
         >
           <Route exact path="/login" element={<Login />} />
         </Route>
+        <Route
+          element={
+            <ProtectedRoute
+              exact
+              pathRedirect="/profile"
+              isAuth={!user.success}
+            />
+          }
+        >
+          <Route exact path="/forgot-password" element={<ForgotPassword />} />
+        </Route>
         <Route exact path="/reset-password" element={<ResetPassword />} />
         <Route exact path="/" element={<Main />} />
         <Route exact path="/register" element={<Register />} />
-        <Route exact path="/forgot-password" element={<ForgotPassword />} />
+
         <Route path="/ingredients/:id" element={<Ingredient />} />
       </Routes>
-      {background && (
-        <Route
-          path="/ingredients/:id"
-          element={
-            <Modal visible={true}>
-              <IngredientDetails />
-            </Modal>
-          }
-        />
-      )}
+      <Routes>
+        {background && (
+          <Route
+            path="/ingredients/:id"
+            element={
+              <Modal visible={true} onClose={() => onClose("/")}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+        )}
+      </Routes>
     </div>
   );
 }

@@ -26,12 +26,6 @@ const ForgotPassword = () => {
     }
   };
 
-  useEffect(() => {
-    if (user.success === true) {
-      return navigate("/");
-    }
-  }, [, user]);
-
   return (
     <Form onSubmit={handleSubmit}>
       <p className={multiCl(cl.title, "text text_type_main-medium mb-6")}>

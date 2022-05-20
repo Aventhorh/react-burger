@@ -32,10 +32,8 @@ const Ingredient = ({ props }) => {
       <Link
         className={cl.link}
         key={props._id}
-        to={{
-          pathname: `/ingredients/${props._id}`,
-          state: { background: location },
-        }}
+        to={`/ingredients/${props._id}`}
+        state={{ background: location }}
       >
         <div className={cl.burger__ingredient} ref={dragRef}>
           {count.length > 0 && <Counter count={count.length} size="default" />}
