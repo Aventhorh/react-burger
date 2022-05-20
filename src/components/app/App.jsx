@@ -26,7 +26,7 @@ function App() {
   }, []);
   const location = useLocation();
   const user = useSelector((state) => state.authUserData.userData);
-  let background = location.state && location.state.background;
+  const background = location.state && location.state.background;
   const onClose = (path) => {
     navigate(path);
   };

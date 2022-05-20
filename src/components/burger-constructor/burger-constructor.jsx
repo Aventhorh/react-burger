@@ -86,7 +86,7 @@ const BurgerConstructor = () => {
 
   return (
     <>
-      <Modal visible={modalOrder} setVisible={setModalOrder}>
+      <Modal visible={modalOrder} onClose={() => setModalOrder(false)}>
         <OrderDetails />
       </Modal>
 
