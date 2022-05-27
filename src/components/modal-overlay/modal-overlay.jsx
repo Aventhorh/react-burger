@@ -1,11 +1,9 @@
 import cl from "./modal-overlay.module.css";
-import PropTypes from 'prop-types';
+import { useRef } from "react";
 
-const ModalOverlay = (props) => {
-  return <div className={cl.overlay} onClick={props.onClick}/>;
+const ModalOverlay = ({ onClose }) => {
+  const ref = useRef(null);
+  return <div className={cl.overlay} onClick={() => onClose()} ref={ref} />;
 };
-ModalOverlay.propTypes = {
-  onClick: PropTypes.func.isRequired
-}
 
 export default ModalOverlay;
