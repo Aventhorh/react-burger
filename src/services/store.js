@@ -28,13 +28,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
-      socketMiddleware(
-        "wss://norma.nomoreparties.space/orders/all",
-        wsActions
-      ),
+      socketMiddleware(wsActions),
       logger
     ),
 });
-
-
-//  composeWithDevTools(applyMiddleware(socketMiddleware("wss://norma.nomoreparties.space/orders/all"))))

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../../utils/getCookie";
 import {
   WS_CONNECTION_CLOSED,
-  WS_CONNECTION_START_PROFILE_URL,
+  WS_CONNECTION_START,
 } from "../../services/actions/actions";
 import Order from "./order/order";
 
@@ -20,8 +20,8 @@ const ProfileOrders = () => {
   useEffect(() => {
     if (user.success) {
       dispatch({
-        type: WS_CONNECTION_START_PROFILE_URL,
-        payload: `wss://norma.nomoreparties.space/orders?token=${accessToken}`,
+        type: WS_CONNECTION_START,
+        payload: `wss://norma.nomoreparties.space/orders`,
       });
     }
 

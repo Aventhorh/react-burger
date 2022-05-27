@@ -14,7 +14,10 @@ const OrdersFeed = () => {
   const orders = useSelector((state) => state.wsReducer.orders);
   const statistic = useSelector((state) => state.wsReducer);
   useEffect(() => {
-    dispatch({ type: WS_CONNECTION_START });
+    dispatch({
+      type: WS_CONNECTION_START,
+      payload: `wss://norma.nomoreparties.space/orders`,
+    });
     return () => {
       dispatch({ type: WS_CONNECTION_CLOSED });
     };

@@ -1,7 +1,6 @@
 import { getCookie } from "../utils/getCookie";
 
 export const socketMiddleware = (
-    wsUrl,
     wsActions
 ) => {
     return store => {
@@ -13,9 +12,7 @@ export const socketMiddleware = (
             const { accessToken } = getCookie("accessToken");
             const {
                 wsInit,
-                wsInitProfileUrl,
                 wsSendMessage,
-                wsClose,
                 onOpen,
                 onClose,
                 onError,
@@ -23,11 +20,13 @@ export const socketMiddleware = (
             } = wsActions;
 
             if (type === wsInit) {
-                socket = new WebSocket(wsUrl);
+                if (accessToken) {
+                    socket = new WebSocket(`${payload}?token=${accessToken}`);
+                } else {
+                    socket = new WebSocket(`${payload}/all`);
+                }
             }
-            if (type === wsInitProfileUrl) {
-                socket = new WebSocket(payload);
-            }
+
             if (socket) {
                 socket.onopen = () => {
                     dispatch({ type: onOpen });
@@ -52,11 +51,7 @@ export const socketMiddleware = (
                     const message = { ...payload, token: accessToken };
                     socket.send(JSON.stringify(message));
                 }
-                if (type === wsClose) {
-                    socket.close();
-                }
             }
-
             next(action);
         };
     };
