@@ -1,0 +1,19 @@
+.root {
+    width: 100%;
+    max-width: 870px;
+}
+
+.container{
+    max-width: 1280px;
+    display: flex;
+    margin: 120px auto 0;
+    padding: 0 40px;
+}
+  
+.list {
+    margin: 0;
+    padding: 0 16px 0 0;
+    list-style: none;
+    max-height: 870px;
+    overflow-y: scroll;
+}

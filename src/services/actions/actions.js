@@ -12,6 +12,31 @@ export const REGISTER_USER = 'REGISTER_USER'
 export const AUTH_USER = 'AUTH_USER'
 export const AUTH_USER_DATA = 'AUTH_USER_DATA'
 
+//для создания объекта класса WebSocket
+export const WS_CONNECTION_START = 'WS_CONNECTION_START';
+//при успешном соединении
+export const WS_CONNECTION_SUCCESS = 'WS_CONNECTION_SUCCESS';
+//в случае ошибки соединения
+export const WS_CONNECTION_ERROR = 'WS_CONNECTION_ERROR';
+//при закрытии соединения
+export const WS_CONNECTION_CLOSED = 'WS_CONNECTION_CLOSED';
+//при получении сообщения от сервера
+export const WS_GET_MESSAGE = 'WS_GET_MESSAGE';
+//для отправки сообщений на сервер
+export const WS_SEND_MESSAGE = 'WS_SEND_MESSAGE';
+
+export const WS_CONNECTION_START_PROFILE_URL = 'WS_CONNECTION_START_PROFILE_URL';
+
+export const wsActions = {
+    wsInit: WS_CONNECTION_START,
+    wsInitProfileUrl: WS_CONNECTION_START_PROFILE_URL,
+    wsSendMessage: WS_SEND_MESSAGE,
+    onOpen: WS_CONNECTION_SUCCESS,
+    onClose: WS_CONNECTION_CLOSED,
+    onError: WS_CONNECTION_ERROR,
+    onMessage: WS_GET_MESSAGE
+};
+
 export const addIngredientAction = (payload) => {
     return ({ type: ADD_INGREDIENTS, payload })
 }

@@ -2,19 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import cl from "./burger-ingredients.module.css";
 import Ingredient from "./ingredient/ingredient";
-import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
 import multiCl from "classnames";
-import { useDispatch, useSelector } from "react-redux";
-import { ADD_DETAILS, REMOVE_DETAILS } from "../../services/actions/actions";
+import { useSelector } from "react-redux";
 
 const BurgerIngredients = () => {
-  const dispatch = useDispatch();
   const ingredients = useSelector(
     (state) => state.ingredientsBurger.ingredients
   );
   const [current, setCurrent] = useState("Булки");
-  const [modal, setModal] = useState(false);
   const [scroll, setScroll] = useState([0, 0, 0]);
   const [offSet, setOffSet] = useState(0);
 
@@ -24,25 +19,8 @@ const BurgerIngredients = () => {
   const mainsRef = useRef(null);
   const headsRef = useRef(null);
 
-  //   const details = useSelector((state) => state.details.details);
-
-  //   const openIngredientDetails = (item) => {
-  //     dispatch({ type: ADD_DETAILS, payload: item });
-  //     setModal(true);
-  //   };
-
-  //   useEffect(() => {
-  //     if (modal === false) {
-  //       dispatch({ type: REMOVE_DETAILS, payload: {} });
-  //     }
-  //   }, [modal]);
-
   const renderIngredient = (item) => (
-    <li
-      className={cl.ingredients__item}
-      key={item._id}
-      //   onClick={() => openIngredientDetails(item)}
-    >
+    <li className={cl.ingredients__item} key={item._id}>
       <Ingredient props={item} />
     </li>
   );
@@ -85,10 +63,6 @@ const BurgerIngredients = () => {
 
   return (
     <>
-      {/* <Modal visible={modal} setVisible={setModal}>
-        {details === undefined ? <></> : <IngredientDetails />}
-      </Modal> */}
-
       <section className={cl.ingredients__section}>
         <h1 className={multiCl(cl.title, "text text_type_main-large")}>
           Соберите бургер

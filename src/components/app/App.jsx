@@ -16,6 +16,9 @@ import ProtectedRoute from "../protected-route/protected-route";
 import { useSelector } from "react-redux";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import OrdersFeed from "../../pages/feed/feed";
+import Details from "../../pages/details/details";
+import ProfileOrders from "../../pages/profile-orders/profile-orders";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +44,23 @@ function App() {
         >
           <Route exact path="/profile" element={<Profile />} />
         </Route>
+
+        <Route
+          element={
+            <ProtectedRoute exact pathRedirect="/login" isAuth={user.success} />
+          }
+        >
+          <Route exact path="/profile/orders" element={<ProfileOrders />} />
+        </Route>
+
+        <Route
+          element={
+            <ProtectedRoute exact pathRedirect="/login" isAuth={user.success} />
+          }
+        >
+          <Route exact path="/profile/orders/:id" element={<></>} />
+        </Route>
+
         <Route
           element={
             <ProtectedRoute
@@ -52,6 +72,7 @@ function App() {
         >
           <Route exact path="/login" element={<Login />} />
         </Route>
+
         <Route
           element={
             <ProtectedRoute
@@ -66,11 +87,14 @@ function App() {
         <Route exact path="/reset-password" element={<ResetPassword />} />
         <Route exact path="/" element={<Main />} />
         <Route exact path="/register" element={<Register />} />
+        <Route exact path="/feed" element={<OrdersFeed />} />
 
+        <Route exact path="/feed/:id" element={<Details />} />
         <Route path="/ingredients/:id" element={<Ingredient />} />
       </Routes>
-      <Routes>
-        {background && (
+
+      {background && (
+        <Routes>
           <Route
             path="/ingredients/:id"
             element={
@@ -79,8 +103,32 @@ function App() {
               </Modal>
             }
           />
-        )}
-      </Routes>
+        </Routes>
+      )}
+      {background && (
+        <Routes>
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <Modal visible={true} onClose={() => onClose("/profile/orders")}>
+                <Details />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+      {background && (
+        <Routes>
+          <Route
+            path="/feed/:id"
+            element={
+              <Modal visible={true} onClose={() => onClose("/feed")}>
+                <Details />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
     </div>
   );
 }

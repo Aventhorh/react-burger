@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { apiAuthUserData, apiLogoutUser } from '../../utils/api';
-import { deleteCookie } from '../../utils/deleteCookie';
+import { apiAuthUserData, apiLogoutUser, ws } from '../../utils/api';
 import { getCookie } from '../../utils/getCookie';
 import { setCookie } from '../../utils/setCookie';
 import { getAuthUserDataAction, getIngredientsAction, postAuthAction, postForgotPasswordAction, postOrderAction, postRegisterAction, postResetPasswordAction } from './actions';
+
+
 
 export const fetchOrders = (url, postData) => {
     return function (dispatch) {
@@ -133,3 +134,5 @@ export const postLogout = async () => {
         "token": getCookie('refreshToken')
     })
 };
+
+

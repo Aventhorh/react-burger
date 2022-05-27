@@ -19,10 +19,14 @@ const IngredientConstructor = ({
   moveListItem,
 }) => {
   const dispatch = useDispatch();
-  const [, dragRef] = useDrag({
+  const [{ isDrag }, dragRef] = useDrag({
     type: "item",
     item: { index },
+    collect: (monitor) => ({
+      isDrag: monitor.isDragging(),
+    }),
   });
+  const opacity = isDrag ? 0 : 1;
 
   const [, dropRef] = useDrop({
     accept: "item",
@@ -51,6 +55,7 @@ const IngredientConstructor = ({
 
   return (
     <div
+      style={{ opacity: opacity }}
       ref={dragDropRef}
       className={multiCl(
         bun === true ? cl.ingredient__listItemLocked : cl.ingredient__listItem
