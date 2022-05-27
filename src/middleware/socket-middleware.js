@@ -9,7 +9,7 @@ export const socketMiddleware = (
         return next => action => {
             const { dispatch } = store;
             const { type, payload } = action;
-            const { accessToken } = getCookie("accessToken");
+            const accessToken = getCookie("accessToken");
             const {
                 wsInit,
                 wsSendMessage,

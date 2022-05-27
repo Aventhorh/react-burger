@@ -10,7 +10,7 @@ import { resetPassword } from "./reset-password-reducer";
 import { wsReducer } from "./rootReducer";
 import { socketMiddleware } from "../middleware/socket-middleware";
 import { configureStore } from "@reduxjs/toolkit";
-import logger from "redux-logger";
+// import logger from "redux-logger";
 import { wsActions } from "./actions/actions";
 
 export const store = configureStore({
@@ -29,6 +29,6 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       socketMiddleware(wsActions),
-      logger
+      // logger
     ),
 });
