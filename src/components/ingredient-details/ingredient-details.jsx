@@ -4,13 +4,13 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 const IngredientDetails = () => {
-  const params = useParams();
+  const { id } = useParams();
   const ingredientId = (id) => (state) => {
     return state.ingredientsBurger.ingredients.find((ing) => ing._id === id);
   };
-  const ingredient = useSelector(ingredientId(params.id));
+  const ingredient = useSelector(ingredientId(id));
   if (!ingredient) {
-    return <div>Not found</div>;
+    return <div className="text text_type_main-large mt-20">Загрузка...</div>;
   }
 
   return (

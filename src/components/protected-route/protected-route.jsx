@@ -9,8 +9,7 @@ const ProtectedRoute = ({ pathRedirect, isAuth }) => {
 
   return (
     <Navigate
-      to={location.state?.from || pathRedirect}
-      replace
+      to={location.state?.path || pathRedirect}
       state={{ path: location.pathname }}
     />
   );

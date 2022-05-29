@@ -21,7 +21,7 @@ const ProfileOrders = () => {
     if (user.success) {
       dispatch({
         type: WS_CONNECTION_START,
-        payload: `wss://norma.nomoreparties.space/orders`,
+        payload: `wss://norma.nomoreparties.space/orders?token=${accessToken}`,
       });
     }
 

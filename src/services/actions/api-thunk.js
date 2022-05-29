@@ -6,10 +6,32 @@ import { getAuthUserDataAction, getIngredientsAction, postAuthAction, postForgot
 
 
 
+// export const fetchOrders = (url, postData) => {
+//     return function (dispatch) {
+//         axios.post(url, {
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 Authorization: 'Bearer ' + getCookie('accessToken')
+//             }
+//         }, {
+//             "ingredients": postData
+//         })
+//             .then(data => console.log(data))
+//             .then(json => dispatch(postOrderAction(json.data.order.number)))
+//             .catch(error => console.log(error))
+//     }
+// }
+
 export const fetchOrders = (url, postData) => {
     return function (dispatch) {
         axios.post(url, {
             "ingredients": postData
+        }, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + getCookie('accessToken')
+            },
         })
             .then(json => dispatch(postOrderAction(json.data.order.number)))
             .catch(error => console.log(error))

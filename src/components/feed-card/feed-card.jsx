@@ -26,9 +26,9 @@ const FeedCard = ({ data }) => {
   return (
     <li className={cl.cardContainer}>
       <Link
-        to={`${data._id}`}
-        state={{ background: location }}
         className={cl.card}
+        to={`/feed/${data._id}`}
+        state={{ background: location }}
       >
         <p className={multiCl(cl.header, "text text_type_digits-default")}>
           #{data.number}{" "}

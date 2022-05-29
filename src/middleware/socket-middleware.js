@@ -20,11 +20,7 @@ export const socketMiddleware = (
             } = wsActions;
 
             if (type === wsInit) {
-                if (accessToken) {
-                    socket = new WebSocket(`${payload}?token=${accessToken}`);
-                } else {
-                    socket = new WebSocket(`${payload}/all`);
-                }
+                socket = new WebSocket(payload);
             }
 
             if (socket) {

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import cl from "./app.module.css";
 import { fetchIngredients } from "../../services/actions/api-thunk";
 import { apiIngredientsConfig } from "../../utils/api";
@@ -29,17 +29,18 @@ function App() {
   }, []);
   const location = useLocation();
   const user = useSelector((state) => state.authUserData.userData);
-  const background = location.state && location.state.background;
+  const background = location.state?.background;
   const onClose = (path) => {
     navigate(path);
   };
+  console.log(user);
   return (
     <div className={cl.app}>
       <AppHeader />
       <Routes location={background ?? location}>
         <Route
           element={
-            <ProtectedRoute exact pathRedirect="/login" isAuth={user.success} />
+            <ProtectedRoute pathRedirect="/login" isAuth={user.success} />
           }
         >
           <Route exact path="/profile" element={<Profile />} />
@@ -47,27 +48,7 @@ function App() {
 
         <Route
           element={
-            <ProtectedRoute exact pathRedirect="/login" isAuth={user.success} />
-          }
-        >
-          <Route exact path="/profile/orders" element={<ProfileOrders />} />
-        </Route>
-
-        <Route
-          element={
-            <ProtectedRoute exact pathRedirect="/login" isAuth={user.success} />
-          }
-        >
-          <Route exact path="/profile/orders/:id" element={<></>} />
-        </Route>
-
-        <Route
-          element={
-            <ProtectedRoute
-              exact
-              pathRedirect="/profile"
-              isAuth={!user.success}
-            />
+            <ProtectedRoute pathRedirect="/profile" isAuth={!user.success} />
           }
         >
           <Route exact path="/login" element={<Login />} />
@@ -75,21 +56,40 @@ function App() {
 
         <Route
           element={
-            <ProtectedRoute
-              exact
-              pathRedirect="/profile"
-              isAuth={!user.success}
-            />
+            <ProtectedRoute pathRedirect="/profile" isAuth={!user.success} />
           }
         >
           <Route exact path="/forgot-password" element={<ForgotPassword />} />
         </Route>
+
+        <Route
+          element={
+            <ProtectedRoute
+              pathRedirect="/login"
+              isAuth={
+                !user.success
+                  ? setTimeout(() => user.success, 5000)
+                  : user.success
+              }
+            />
+          }
+        >
+          <Route exact path="/profile/orders" element={<ProfileOrders />} />
+        </Route>
+
         <Route exact path="/reset-password" element={<ResetPassword />} />
         <Route exact path="/" element={<Main />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/feed" element={<OrdersFeed />} />
 
-        <Route exact path="/feed/:id" element={<Details />} />
+        <Route
+          element={
+            <ProtectedRoute pathRedirect="/login" isAuth={user.success} />
+          }
+        >
+          <Route path="/profile/orders/:id" element={<Details />} />
+        </Route>
+        <Route path="/feed/:id" element={<Details />} />
         <Route path="/ingredients/:id" element={<Ingredient />} />
       </Routes>
 

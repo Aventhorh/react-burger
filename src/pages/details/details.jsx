@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ImgIngredient from "../../components/feed-card/img-ingredient/img-ingredient";
 import { date } from "../../utils/date";
+import { useEffect } from "react";
 
 const Details = () => {
   let num;
@@ -18,15 +19,21 @@ const Details = () => {
   );
 
   const ingredientsInOrder = ingredients.filter((ingredient) => {
-    return ordersFromSockets.ingredients.find((ingre) => {
-      return ingredient._id === ingre;
-    });
+    if (ordersFromSockets) {
+      return ordersFromSockets.ingredients.find((ingre) => {
+        return ingredient._id === ingre;
+      });
+    }
   });
 
   const bunIngredient = ingredientsInOrder.find((item) => item.type === "bun");
   const ingredientsWithoutBuns = ingredientsInOrder.filter((ingredient) => {
     return ingredient.type != "bun";
   });
+
+  if (!ordersFromSockets) {
+    return <div className="text text_type_main-large mt-20">Загрузка...</div>;
+  }
 
   return (
     <div className={cl.root}>

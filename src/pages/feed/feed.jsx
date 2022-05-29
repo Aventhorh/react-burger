@@ -16,7 +16,7 @@ const OrdersFeed = () => {
   useEffect(() => {
     dispatch({
       type: WS_CONNECTION_START,
-      payload: `wss://norma.nomoreparties.space/orders`,
+      payload: `wss://norma.nomoreparties.space/orders/all`,
     });
     return () => {
       dispatch({ type: WS_CONNECTION_CLOSED });

@@ -18,6 +18,7 @@ const Order = ({ data }) => {
       return ingredient._id === ingre;
     });
   });
+
   const bunIngredient = ingredientsInOrder.find((item) => item.type === "bun");
   const ingredientsWithoutBuns = ingredientsInOrder.filter((ingredient) => {
     return ingredient.type != "bun";
@@ -27,7 +28,7 @@ const Order = ({ data }) => {
     <li className={cl.orderContainer}>
       <Link
         className={cl.order}
-        to={`${data._id}`}
+        to={`/profile/orders/${data._id}`}
         state={{ background: location }}
       >
         <p className={cl.header}>
