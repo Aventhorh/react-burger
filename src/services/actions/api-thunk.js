@@ -4,24 +4,6 @@ import { getCookie } from '../../utils/getCookie';
 import { setCookie } from '../../utils/setCookie';
 import { getAuthUserDataAction, getIngredientsAction, postAuthAction, postForgotPasswordAction, postOrderAction, postRegisterAction, postResetPasswordAction } from './actions';
 
-
-
-// export const fetchOrders = (url, postData) => {
-//     return function (dispatch) {
-//         axios.post(url, {
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 Authorization: 'Bearer ' + getCookie('accessToken')
-//             }
-//         }, {
-//             "ingredients": postData
-//         })
-//             .then(data => console.log(data))
-//             .then(json => dispatch(postOrderAction(json.data.order.number)))
-//             .catch(error => console.log(error))
-//     }
-// }
-
 export const fetchOrders = (url, postData) => {
     return function (dispatch) {
         axios.post(url, {
@@ -101,7 +83,6 @@ export const postAuth = (url, email, password) => {
                 }
                 return res;
             })
-            .then(res => console.log(res))
             .then(data => dispatch(postAuthAction(data)))
             .finally(() => dispatch(getAuthUserData(apiAuthUserData)))
             .catch(error => console.log(error))

@@ -50,6 +50,8 @@ const AppHeader = () => {
       return "primary";
     } else if (thisPathname === "/register") {
       return "primary";
+    } else if (thisPathname === "/profile/orders") {
+      return "primary";
     } else {
       return "secondary";
     }
@@ -62,6 +64,8 @@ const AppHeader = () => {
     } else if (thisPathname === "/profile") {
       return cl.header_link_active;
     } else if (thisPathname === "/register") {
+      return cl.header_link_active;
+    } else if (thisPathname === "/profile/orders") {
       return cl.header_link_active;
     } else {
       return "";

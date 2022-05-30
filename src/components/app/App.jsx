@@ -33,7 +33,6 @@ function App() {
   const onClose = (path) => {
     navigate(path);
   };
-  console.log(user);
   return (
     <div className={cl.app}>
       <AppHeader />
@@ -84,7 +83,14 @@ function App() {
 
         <Route
           element={
-            <ProtectedRoute pathRedirect="/login" isAuth={user.success} />
+            <ProtectedRoute
+              pathRedirect="/login"
+              isAuth={
+                !user.success
+                  ? setTimeout(() => user.success, 5000)
+                  : user.success
+              }
+            />
           }
         >
           <Route path="/profile/orders/:id" element={<Details />} />
