@@ -1,20 +1,23 @@
-import { REGISTER_USER, TActions } from "./actions/actions"
+import { REGISTER_USER, TActions } from "./actions/actions";
 
 type TDefaultRegister = {
-    user: {
-        success?: boolean
-    }
-}
+  user: {
+    success?: boolean;
+  };
+};
 
 const defaultRegister: TDefaultRegister = {
-    user: {}
-}
+  user: {},
+};
 
-export const registerUser = (state = defaultRegister, action: TActions): TDefaultRegister => {
-    switch (action.type) {
-        case REGISTER_USER:
-            return { ...state, user: action.payload }
-        default:
-            return state
-    }
-}
+export const registerUser = (
+  state = defaultRegister,
+  action: TActions
+): TDefaultRegister => {
+  switch (action.type) {
+    case REGISTER_USER:
+      return { ...state, user: action.payload };
+    default:
+      return state;
+  }
+};

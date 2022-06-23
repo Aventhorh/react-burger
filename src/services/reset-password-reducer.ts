@@ -1,18 +1,21 @@
-import { RESET_PASSWORD, TActions } from "./actions/actions"
+import { RESET_PASSWORD, TActions } from "./actions/actions";
 
 type TDefaultResetPassword = {
-    password: string
-}
+  password: string;
+};
 
 const defaultResetPassword: TDefaultResetPassword = {
-    password: ''
-}
+  password: "",
+};
 
-export const resetPassword = (state = defaultResetPassword, action: TActions): TDefaultResetPassword => {
-    switch (action.type) {
-        case RESET_PASSWORD:
-            return { ...state, password: action.payload }
-        default:
-            return state
-    }
-}
+export const resetPassword = (
+  state = defaultResetPassword,
+  action: TActions
+): TDefaultResetPassword => {
+  switch (action.type) {
+    case RESET_PASSWORD:
+      return { ...state, password: action.payload };
+    default:
+      return state;
+  }
+};

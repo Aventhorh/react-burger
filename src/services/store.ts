@@ -1,10 +1,10 @@
 import { authUser } from "./auth-reducer";
 import { authUserData } from "./auth-user-data";
-import { burgerConstructorReducer } from "./constructor-reducer"
-import { detailsReducer } from "./details-reducer"
+import { burgerConstructorReducer } from "./constructor-reducer";
+import { detailsReducer } from "./details-reducer";
 import { forgotPassword } from "./forgot-password-reducer";
-import { burgerIngredientsReducer } from "./ingredients-reducer"
-import { orderReducer } from "./order-reducer"
+import { burgerIngredientsReducer } from "./ingredients-reducer";
+import { orderReducer } from "./order-reducer";
 import { registerUser } from "./register-user-reducer";
 import { resetPassword } from "./reset-password-reducer";
 import { wsReducer } from "./rootReducer";
@@ -23,10 +23,8 @@ export const store = configureStore({
     registerUser: registerUser,
     authUser: authUser,
     authUserData: authUserData,
-    wsReducer: wsReducer
+    wsReducer: wsReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(
-      socketMiddleware(wsActions)
-    ),
+    getDefaultMiddleware().concat(socketMiddleware(wsActions)),
 });
