@@ -27,7 +27,7 @@ const BurgerConstructor = () => {
   const selectIngredients = useSelector(
     (state) => state.constructorBurger.addedIngredients
   );
-
+  const order = useSelector((state) => state.order.order);
   const thisUser = useMemo(() => user, [user]);
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const BurgerConstructor = () => {
   return (
     <>
       <Modal visible={modalOrder} onClose={() => setModalOrder(false)}>
-        <OrderDetails />
+        <OrderDetails props={order} />
       </Modal>
 
       <section

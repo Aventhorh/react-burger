@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { apiAuthUserData, apiLogoutUser } from '../../utils/api';
-import { deleteCookie } from '../../utils/deleteCookie';
+import { apiAuthUserData, apiLogoutUser, ws } from '../../utils/api';
 import { getCookie } from '../../utils/getCookie';
 import { setCookie } from '../../utils/setCookie';
 import { getAuthUserDataAction, getIngredientsAction, postAuthAction, postForgotPasswordAction, postOrderAction, postRegisterAction, postResetPasswordAction } from './actions';
@@ -9,6 +8,12 @@ export const fetchOrders = (url, postData) => {
     return function (dispatch) {
         axios.post(url, {
             "ingredients": postData
+        }, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + getCookie('accessToken')
+            },
         })
             .then(json => dispatch(postOrderAction(json.data.order.number)))
             .catch(error => console.log(error))
@@ -133,3 +138,5 @@ export const postLogout = async () => {
         "token": getCookie('refreshToken')
     })
 };
+
+

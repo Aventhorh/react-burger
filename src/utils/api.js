@@ -7,3 +7,5 @@ export const apiRegister = `${baseUrl}/auth/register`;
 export const apiAuth = `${baseUrl}/auth/login`;
 export const apiAuthUserData = `${baseUrl}/auth/user`;
 export const apiLogoutUser = `${baseUrl}/auth/logout`;
+
+export const ws = new WebSocket("wss://norma.nomoreparties.space/orders/all")

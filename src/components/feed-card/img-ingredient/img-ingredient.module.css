@@ -1,0 +1,23 @@
+.ingredient {
+    width: 60px;
+    height: 60px;
+    box-sizing: content-box;
+    border-radius: 50%;
+    background: linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%);
+    padding: 2px;
+    position: relative;
+    margin: 0;
+}
+
+.ingredient:not(:last-child) {
+    margin-left: -15px;
+}
+
+.ingredientImage {
+    width: 60px;
+    height: 60px;
+    display: block;
+    object-fit: cover;
+    border-radius: 50%;
+    background: #131316;
+}

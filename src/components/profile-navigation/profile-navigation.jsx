@@ -44,7 +44,11 @@ const ProfileNavigation = () => {
         </li>
         <li>
           <Link
-            className={multiCl(cl.link, "text text_type_main-medium pt-4 pb-4")}
+            className={multiCl(
+              cl.link,
+              "text text_type_main-medium pt-4 pb-4",
+              thisPathname === "/profile/orders" ? cl.link_active : ""
+            )}
             to="/profile/orders"
           >
             История заказов
@@ -63,7 +67,10 @@ const ProfileNavigation = () => {
         </li>
       </ul>
       <p className="text text_type_main-default text_color_inactive mt-20">
-        В этом разделе вы можете изменить свои персональные данные
+        В этом разделе вы можете
+        {thisPathname === "/profile"
+          ? " изменить свои персональные данные"
+          : " просмотреть свою историю заказов"}
       </p>
     </div>
   );

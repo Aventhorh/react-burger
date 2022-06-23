@@ -22,6 +22,24 @@ const AppHeader = () => {
   useEffect(() => {
     dispatch(getAuthUserData(apiAuthUserData));
   }, []);
+  const pathnameSelectIconFeed = () => {
+    if (thisPathname === "/feed") {
+      return "primary";
+    } else if (thisPathname === "//feed/:id") {
+      return "primary";
+    } else {
+      return "secondary";
+    }
+  };
+  const pathnameSelectTextFeed = () => {
+    if (thisPathname === "/feed") {
+      return cl.header_link_active;
+    } else if (thisPathname === "/feed/:id") {
+      return cl.header_link_active;
+    } else {
+      return "";
+    }
+  };
 
   const pathnameSelectIcon = () => {
     if (thisPathname === "/login") {
@@ -31,6 +49,8 @@ const AppHeader = () => {
     } else if (thisPathname === "/profile") {
       return "primary";
     } else if (thisPathname === "/register") {
+      return "primary";
+    } else if (thisPathname === "/profile/orders") {
       return "primary";
     } else {
       return "secondary";
@@ -45,6 +65,8 @@ const AppHeader = () => {
       return cl.header_link_active;
     } else if (thisPathname === "/register") {
       return cl.header_link_active;
+    } else if (thisPathname === "/profile/orders") {
+      return cl.header_link_active;
     } else {
       return "";
     }
@@ -53,9 +75,9 @@ const AppHeader = () => {
     <header>
       <div className={cl.header_container}>
         <div className={cl.header_linksContainer}>
-          <a className={cl.header_logo}>
+          <Link to={"/"} className={cl.header_logo}>
             <Logo />
-          </a>
+          </Link>
 
           <Link className={multiCl(cl.header_link)} to="/">
             <BurgerIcon type={thisPathname === "/" ? "primary" : "secondary"} />
@@ -69,10 +91,17 @@ const AppHeader = () => {
             </p>
           </Link>
 
-          <a className={cl.header_link}>
-            <ListIcon type={"secondary"} />
-            <p className="text text_type_main-default ml-2">Лента заказов</p>
-          </a>
+          <Link className={multiCl(cl.header_link)} to={"/feed"}>
+            <ProfileIcon type={pathnameSelectIconFeed()} />
+            <p
+              className={multiCl(
+                "text text_type_main-default ml-2",
+                pathnameSelectTextFeed()
+              )}
+            >
+              Лента заказов
+            </p>
+          </Link>
 
           <Link
             className={multiCl(cl.header_link, cl.header_link_right)}

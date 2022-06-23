@@ -1,0 +1,39 @@
+.stats {
+    width: 100%;
+    max-width: 584px;
+}
+
+.orderId:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.orderId_light {
+  color: #00cccc;
+}
+
+.allStats:not(:last-child) {
+  margin-bottom: 60px;
+}
+
+.statsShadow {
+  text-shadow: 0 0 16px rgba(51, 51, 255, 0.25), 0 0 8px rgba(51, 51, 255, 0.25),
+    0 4px 32px rgba(51, 51, 255, 0.5);
+}
+  
+.ordersStats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 36px;
+    margin-bottom: 60px;
+}
+  
+.list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    height: 230px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+  

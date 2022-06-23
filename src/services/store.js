@@ -1,5 +1,3 @@
-import { combineReducers, createStore, applyMiddleware } from "redux"
-import thunk from 'redux-thunk';
 import { authUser } from "./auth-reducer";
 import { authUserData } from "./auth-user-data";
 import { burgerConstructorReducer } from "./constructor-reducer"
@@ -9,17 +7,28 @@ import { burgerIngredientsReducer } from "./ingredients-reducer"
 import { orderReducer } from "./order-reducer"
 import { registerUser } from "./register-user-reducer";
 import { resetPassword } from "./reset-password-reducer";
+import { wsReducer } from "./rootReducer";
+import { socketMiddleware } from "../middleware/socket-middleware";
+import { configureStore } from "@reduxjs/toolkit";
+// import logger from "redux-logger";
+import { wsActions } from "./actions/actions";
 
-const rootReducer = combineReducers({
-  ingredientsBurger: burgerIngredientsReducer,
-  constructorBurger: burgerConstructorReducer,
-  order: orderReducer,
-  details: detailsReducer,
-  forgotPass: forgotPassword,
-  resetPass: resetPassword,
-  registerUser: registerUser,
-  authUser: authUser,
-  authUserData: authUserData
-})
-
-export const store = createStore(rootReducer, applyMiddleware(thunk))
+export const store = configureStore({
+  reducer: {
+    ingredientsBurger: burgerIngredientsReducer,
+    constructorBurger: burgerConstructorReducer,
+    order: orderReducer,
+    details: detailsReducer,
+    forgotPass: forgotPassword,
+    resetPass: resetPassword,
+    registerUser: registerUser,
+    authUser: authUser,
+    authUserData: authUserData,
+    wsReducer: wsReducer
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(
+      socketMiddleware(wsActions),
+      // logger
+    ),
+});
