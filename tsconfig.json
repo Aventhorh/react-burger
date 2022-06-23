@@ -20,7 +20,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src/**/*.ts", "tests/**/*.ts", "src/services/auth-user-data.js"],
+  "exclude": ["node_modules", ".vscode"]
 }
